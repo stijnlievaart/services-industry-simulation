@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace Services_Industry_Simulation.Simulation
 {
-    class Seat
+    public class Seat
     {
-        FPoint location;
-        float size;
+        FPoint location; // world coordinates of left bottom part of seat
+        float size; // size of seat (seat is always squared)
         Customer person;
 
         public Seat(FPoint location, float size)

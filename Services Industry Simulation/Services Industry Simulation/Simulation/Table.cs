@@ -6,9 +6,10 @@ using System.Windows.Forms;
 
 namespace Services_Industry_Simulation.Simulation
 {
-    class Table
+    public class Table
     {
         Seat[] seats;
+        Group group;
         FPoint location;
         FPoint size;
         public Table(Seat[] seats, FPoint location, FPoint size)

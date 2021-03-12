@@ -6,11 +6,16 @@ using System.Windows.Forms;
 
 namespace Services_Industry_Simulation.Simulation
 {
-    class StaffManager
+    public class StaffManager
     {
-        public StaffManager()
+        Staff[] staff;
+        public StaffManager(int maxStaff)
         {
-
+            staff = new Staff[maxStaff];
+            for (int i = 0; i < maxStaff; i++)
+            {
+                staff[i] = new Staff();
+            }
         }
     }
 }

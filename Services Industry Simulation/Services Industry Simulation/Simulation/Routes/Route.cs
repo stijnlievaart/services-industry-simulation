@@ -6,7 +6,7 @@ using System.Windows.Forms;
 
 namespace Services_Industry_Simulation.Simulation
 {
-    class Route
+    public class Route
     {
         private FPoint start;
         private FPoint end;

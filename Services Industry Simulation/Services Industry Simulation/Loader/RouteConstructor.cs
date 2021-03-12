@@ -52,12 +52,6 @@ namespace Services_Industry_Simulation.Loader
 
 
         // Debug
-        /// <summary>
-        /// Used for debugging the routeConstructors
-        /// </summary>
-        /// <param name="routes">routes array generated earlier</param>
-        /// <param name="w">width of the world & display</param>
-        /// <param name="h">height of the world & display</param>
         private static void PrimitivePrintRoute(char[,] debug, RouteConstructor[] routes)
         {
             for (int i = 0; i < routes.Length; i++)
@@ -78,12 +72,6 @@ namespace Services_Industry_Simulation.Loader
 
 
         // Static Methods for generating routes
-
-        /// <summary>
-        /// Used for generating the required routes
-        /// </summary>
-        /// <param name="tiles">Dictionary with the location of every tile as a key and the type of tile as value.</param>
-        /// <returns></returns>
         public static Route[] GenerateRoutes(Dictionary<(int, int), RouteTile> tiles, char[,] debug)
         {
             List<RouteConstructor> routes = new List<RouteConstructor>();
@@ -134,11 +122,7 @@ namespace Services_Industry_Simulation.Loader
             }
             return constructedRoutes;
         }
-        /// <summary>
-        /// Converts RouteTile to A RouteConstructor.Type type. This will fail for non route types (end,start)
-        /// </summary>
-        /// <param name="rt">Routetile to convert</param>
-        /// <returns></returns>
+
         private static RouteConstructor.Type RouteTileToRouteType(RouteTile rt)
         {
             if (rt == RouteTile.Entry) return RouteConstructor.Type.Entry;
@@ -150,15 +134,6 @@ namespace Services_Industry_Simulation.Loader
             else throw new Exception(rt.ToString() + " isn't supported in Route Types.");
         }
 
-        /// <summary>
-        /// Checks the tile and sees if any surrounding tiles are connected to this tile.\
-        /// If this is the case, it will add it to the rout
-        /// </summary>
-        /// <param name="oldPair">Previous location</param>
-        /// <param name="oldTileType">Previous tile (current route) type </param>
-        /// <param name="newRoute">The route to add the new tiles to</param>
-        /// <param name="tiles">Tilemap of all tiles in the world</param>
-        /// <param name="inRoute">Dictionary that has the tiles that are already in a route with their corresponding route.</param>
         private static void CheckTile((int, int) oldPair, RouteTile oldTileType, RouteConstructor newRoute, Dictionary<(int, int), RouteTile> tiles, Dictionary<(int, int), RouteConstructor> inRoute)
         {
             (int i, int j) = oldPair;

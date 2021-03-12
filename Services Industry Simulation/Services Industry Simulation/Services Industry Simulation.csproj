@@ -49,6 +49,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Imports\Minheap.cs" />
     <Compile Include="Loader\Colors.cs" />
     <Compile Include="General Controls.cs">
       <SubType>Form</SubType>
@@ -68,6 +69,7 @@
     <Compile Include="Loader\RouteConstructor.cs" />
     <Compile Include="Loader\IPoint.cs" />
     <Compile Include="Loader\TableConstructor.cs" />
+    <Compile Include="Simulation\Events\Event.cs" />
     <Compile Include="Simulation\FPoint.cs" />
     <Compile Include="Simulation\Seat.cs" />
     <Compile Include="Simulation\Table.cs" />

@@ -101,9 +101,7 @@ namespace Services_Industry_Simulation.Loader
                 }
                 Console.WriteLine();
             }
-
-
-            return null;
+            return new Model(tables,routes,Config.MaxStaff);
         }
 
     }

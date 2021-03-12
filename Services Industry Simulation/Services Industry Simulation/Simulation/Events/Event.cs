@@ -1,17 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace Services_Industry_Simulation.Simulation
 {
-    class Staff : Person
+    public class Event
     {
-        bool busy;
-        public Staff()
+        public int Position
         {
-            busy = false;
+            get
+            {
+                return 0;
+            }
         }
     }
 }

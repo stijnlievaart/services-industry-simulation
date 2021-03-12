@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Services_Industry_Simulation.Simulation
 {
-    class FPoint
+    public class FPoint
     {
         public float x;
         public float y;
