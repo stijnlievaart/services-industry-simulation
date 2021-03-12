@@ -1,9 +1,4 @@
 ﻿using Services_Industry_Simulation.Simulation;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Services_Industry_Simulation.Loader
 {
@@ -16,7 +11,7 @@ namespace Services_Industry_Simulation.Loader
             this.x = x;
             this.y = y;
         }
-        public IPoint((int,int) pair)
+        public IPoint((int, int) pair)
         {
             (this.x, this.y) = pair;
         }

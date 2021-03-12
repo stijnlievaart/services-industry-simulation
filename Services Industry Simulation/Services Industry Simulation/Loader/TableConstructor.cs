@@ -1,10 +1,6 @@
 ﻿using Services_Industry_Simulation.Simulation;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Services_Industry_Simulation.Simulation;
 namespace Services_Industry_Simulation.Loader
 {
     class TableConstructor
@@ -48,7 +44,7 @@ namespace Services_Industry_Simulation.Loader
                 if (square.y > max.y) max.y = square.y;
                 if (square.y < min.y) min.y = square.y;
             }
-            FPoint size = new FPoint((max.x - min.x)*Config.Scale, (max.y - min.y) * Config.Scale);
+            FPoint size = new FPoint((max.x - min.x) * Config.Scale, (max.y - min.y) * Config.Scale);
             FPoint location = new FPoint(min.x * Config.Scale, min.y * Config.Scale);
             Seat[] constructedSeats = new Seat[seats.Count];
             // Get seats
@@ -56,7 +52,7 @@ namespace Services_Industry_Simulation.Loader
             {
                 IPoint seatLoc = seats[i];
                 FPoint floatSeatLoc = new FPoint(seatLoc.x * Config.Scale, seatLoc.y * Config.Scale);
-                constructedSeats[i] = new Seat(floatSeatLoc,Config.Scale);
+                constructedSeats[i] = new Seat(floatSeatLoc, Config.Scale);
             }
 
             return new Table(constructedSeats, location, size);

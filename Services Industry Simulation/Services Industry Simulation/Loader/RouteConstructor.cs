@@ -1,9 +1,6 @@
 ﻿using Services_Industry_Simulation.Simulation;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Services_Industry_Simulation.Loader
 {
@@ -14,7 +11,7 @@ namespace Services_Industry_Simulation.Loader
         private IPoint end;
         public Type type;
         public List<IPoint> via;
-        public enum Type { Normal = 'N', Pay = 'P', Toilet = 'T', Exit = 'O', Entry = 'I', Staff = 'S'}
+        public enum Type { Normal = 'N', Pay = 'P', Toilet = 'T', Exit = 'O', Entry = 'I', Staff = 'S' }
         public RouteConstructor(Type type)
         {
             this.type = type;
@@ -46,7 +43,7 @@ namespace Services_Industry_Simulation.Loader
             FPoint newStart = null;
             if (end != null) newEnd = end.RealWorld;
             if (newStart != null) newStart = start.RealWorld;
-            return new Route(newStart,newEnd, points);
+            return new Route(newStart, newEnd, points);
         }
 
 

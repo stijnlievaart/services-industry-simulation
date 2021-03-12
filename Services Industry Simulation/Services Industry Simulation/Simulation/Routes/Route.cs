@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-
-namespace Services_Industry_Simulation.Simulation
+﻿namespace Services_Industry_Simulation.Simulation
 {
     public class Route
     {
@@ -12,7 +6,7 @@ namespace Services_Industry_Simulation.Simulation
         private FPoint end;
 
         private FPoint[] via;
-        public enum Type { Normal, Pay, Toilet, Exit, Entry, Staff}
+        public enum Type { Normal, Pay, Toilet, Exit, Entry, Staff }
         public Route(FPoint start, FPoint end, FPoint[] via)
         {
             this.start = start;

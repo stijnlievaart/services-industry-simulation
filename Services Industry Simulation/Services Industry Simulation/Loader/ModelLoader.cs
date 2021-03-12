@@ -2,9 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 namespace Services_Industry_Simulation.Loader
 {
     static class ModelLoader
@@ -39,10 +36,10 @@ namespace Services_Industry_Simulation.Loader
                     {
                         tableTiles.Add((i, j), TableConstructor.TableTile.Seat);
                     }
-                    else if(Colors.Equal(color, Colors.Table))
+                    else if (Colors.Equal(color, Colors.Table))
                     {
                         tableTiles.Add((i, j), TableConstructor.TableTile.Table);
-                    }     
+                    }
                     else if (Colors.Equal(color, Colors.NormalRoute))
                     {
                         routeTiles.Add((i, j), RouteConstructor.RouteTile.Normal);
@@ -81,11 +78,11 @@ namespace Services_Industry_Simulation.Loader
                     }
                     else if (Colors.IsGrey(color)) // Skip any grey color (easier for marking borders and estimating distances
                     {
-                        
+
                     }
                     else Console.WriteLine("Unknown Color: " + color.ToString());
                 }
-                
+
             }
 
             // Generate the routes
@@ -101,7 +98,7 @@ namespace Services_Industry_Simulation.Loader
                 }
                 Console.WriteLine();
             }
-            return new Model(tables,routes,Config.MaxStaff);
+            return new Model(tables, routes, Config.MaxStaff);
         }
 
     }

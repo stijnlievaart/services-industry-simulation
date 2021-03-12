@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Drawing;
 
 namespace Services_Industry_Simulation
 {
@@ -30,7 +25,7 @@ namespace Services_Industry_Simulation
             toiletRoute = Color.FromArgb(255, 127, 39);
             routeStart = Color.FromArgb(196, 255, 14);
             routeEnd = Color.FromArgb(136, 0, 27);
-            white = Color.FromArgb(255,255, 255);
+            white = Color.FromArgb(255, 255, 255);
             seat = Color.FromArgb(63, 72, 204);
             table = Color.FromArgb(185, 122, 86);
             groupConnector = Color.FromArgb(140, 255, 251);
