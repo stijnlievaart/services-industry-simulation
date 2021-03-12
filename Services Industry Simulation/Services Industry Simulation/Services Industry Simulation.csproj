@@ -5,7 +5,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{4561D728-B882-4EAB-9FE5-4D50E2479C20}</ProjectGuid>
-    <OutputType>WinExe</OutputType>
+    <OutputType>Exe</OutputType>
     <RootNamespace>Services_Industry_Simulation</RootNamespace>
     <AssemblyName>Services Industry Simulation</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
@@ -32,6 +32,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -46,14 +49,42 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Form1.cs">
+    <Compile Include="Loader\Colors.cs" />
+    <Compile Include="General Controls.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="General Controls.Designer.cs">
+      <DependentUpon>General Controls.cs</DependentUpon>
     </Compile>
+    <Compile Include="Loader\Config.cs" />
+    <Compile Include="Loader\LoaderForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Loader\LoaderForm.Designer.cs">
+      <DependentUpon>LoaderForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Loader\ModelLoader.cs" />
+    <Compile Include="Loader\ModelWrapper.cs" />
+    <Compile Include="Loader\RouteConstructor.cs" />
+    <Compile Include="Loader\IPoint.cs" />
+    <Compile Include="Simulation\FPoint.cs" />
+    <Compile Include="Simulation\Table.cs" />
+    <Compile Include="Simulation\Staff.cs" />
+    <Compile Include="Simulation\Routes\Route.cs" />
+    <Compile Include="Simulation\StaffManager.cs" />
+    <Compile Include="Simulation\Customer.cs" />
+    <Compile Include="Simulation\Group.cs" />
+    <Compile Include="Simulation\Virus.cs" />
+    <Compile Include="Simulation\Person.cs" />
+    <Compile Include="Simulation\Model.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="General Controls.resx">
+      <DependentUpon>General Controls.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Loader\LoaderForm.resx">
+      <DependentUpon>LoaderForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -74,7 +105,10 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="Simulation\App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Simulation\Routes\Not used right now\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
