@@ -31,6 +31,9 @@ namespace Services_Industry_Simulation
             routeStart = Color.FromArgb(196, 255, 14);
             routeEnd = Color.FromArgb(136, 0, 27);
             white = Color.FromArgb(255,255, 255);
+            seat = Color.FromArgb(63, 72, 204);
+            table = Color.FromArgb(185, 122, 86);
+            groupConnector = Color.FromArgb(140, 255, 251);
         }
 
         static private Color entryRoute;
@@ -62,6 +65,15 @@ namespace Services_Industry_Simulation
 
         static private Color white;
         public static Color White { get { return white; } }
+
+        static private Color table;
+        public static Color Table { get { return table; } }
+
+        static private Color seat;
+        public static Color Seat { get { return seat; } }
+
+        static private Color groupConnector;
+        public static Color GroupConnector { get { return groupConnector; } }
 
     }
 }

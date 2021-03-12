@@ -67,7 +67,9 @@
     <Compile Include="Loader\ModelWrapper.cs" />
     <Compile Include="Loader\RouteConstructor.cs" />
     <Compile Include="Loader\IPoint.cs" />
+    <Compile Include="Loader\TableConstructor.cs" />
     <Compile Include="Simulation\FPoint.cs" />
+    <Compile Include="Simulation\Seat.cs" />
     <Compile Include="Simulation\Table.cs" />
     <Compile Include="Simulation\Staff.cs" />
     <Compile Include="Simulation\Routes\Route.cs" />
