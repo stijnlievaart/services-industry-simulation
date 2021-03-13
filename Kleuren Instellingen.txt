@@ -1,12 +1,13 @@
-14,209,69 (#0ed145)	 	green 		entry
-236,28,36 (#ec1c24)		red		exit
+
 <100,<100,<100 (#<64<64<64)	black-grey	nothing
 
 routes
-(255,0,0) (#ff0000)		redred		normal route
-(184,61,186) (#b83dba)		purple		kassa route
-(0,168,243) (#00a8f3)		blue		persooneels route
-(255,127,39) (#ff7f27)		oranje		wc route
+(255,0,0) (#ff0000)		redred		normal route - nr
+(184,61,186) (#b83dba)		purple		kassa route - pr
+(0,168,243) (#00a8f3)		blue		persooneels route - sr
+(255,127,39) (#ff7f27)		oranje		wc route - tr
+14,209,69 (#0ed145)	 	green 		entry route
+236,28,36 (#ec1c24)		red		exit route
+
 
 (196,255,14) (#c4ff0e)		lime		start van route
-
