@@ -52,7 +52,7 @@ namespace Services_Industry_Simulation.Loader
             {
                 IPoint seatLoc = seats[i];
                 FPoint floatSeatLoc = new FPoint(seatLoc.x * Config.Scale, seatLoc.y * Config.Scale);
-                constructedSeats[i] = new Seat(floatSeatLoc, Config.Scale);
+                constructedSeats[i] = new Seat(floatSeatLoc);
             }
 
             return new Table(constructedSeats, location, size);

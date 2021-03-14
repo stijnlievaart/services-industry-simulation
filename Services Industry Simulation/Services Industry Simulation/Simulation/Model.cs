@@ -7,7 +7,6 @@ namespace Services_Industry_Simulation.Simulation
         Table[] tables;
         Route[] routes;
         StaffManager staffManager;
-        List<Group> customers;
         MinHeap events;
         public Model(Table[] tables, Route[] routes, int maxStaff)
         {

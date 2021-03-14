@@ -2,10 +2,9 @@
 {
     class Staff : Person
     {
-        bool busy;
-        public Staff()
+        public Staff(Virus virus) : base(virus)
         {
-            busy = false;
+
         }
     }
 }

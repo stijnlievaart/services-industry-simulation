@@ -3,13 +3,17 @@
     public class Seat
     {
         FPoint location; // world coordinates of left bottom part of seat
-        float size; // size of seat (seat is always squared)
-        Customer person;
+        Table table;
 
-        public Seat(FPoint location, float size)
+        public Seat(FPoint location)
         {
             this.location = location;
-            this.size = size;
         }
+
+        public void SetTable(Table table)
+        {
+            this.table = table;
+        }
+
     }
 }

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 namespace Services_Industry_Simulation.Simulation
 {
-    class Virus
+    public class Virus
     {
         public List<Person> virusGivers;
         public List<Person> virusTakers;

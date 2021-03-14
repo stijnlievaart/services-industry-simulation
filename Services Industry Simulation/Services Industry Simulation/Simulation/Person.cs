@@ -1,11 +1,15 @@
 ﻿namespace Services_Industry_Simulation.Simulation
 {
-    abstract class Person
+    abstract public class Person
     {
-        private object enrouteTo;
-        public Person()
+        public Virus virus;
+        public Route onRoute;
+        public float onRouteLocation;
+        public Route goalRoute;
+        public float goalRouteLocation;
+        public Person(Virus virus)
         {
-            enrouteTo = null;
+            this.virus = virus;
         }
 
     }
