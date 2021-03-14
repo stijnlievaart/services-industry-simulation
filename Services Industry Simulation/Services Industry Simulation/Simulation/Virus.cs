@@ -13,6 +13,13 @@ namespace Services_Industry_Simulation.Simulation
 
         }
 
+        public Virus() : this(new List<Person>())
+        {
+            this.virusTakers = new List<Person>();
+
+        }
+
+
         public void AddGiver(Person giver)
         {
             virusGivers.Add(giver);

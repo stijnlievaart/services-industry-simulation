@@ -31,7 +31,7 @@ namespace Services_Industry_Simulation.Loader
             tableSquares.Add(pair);
         }
 
-        public Table GenerateTable()
+        public Table GenerateTable(Route[] routes)
         {
             // Calculate size of table by furthest table sides
             IPoint min = new IPoint(int.MaxValue, int.MaxValue);
@@ -55,7 +55,27 @@ namespace Services_Industry_Simulation.Loader
                 constructedSeats[i] = new Seat(floatSeatLoc);
             }
 
-            return new Table(constructedSeats, location, size);
+            Route closestRoute = null;
+            int closestJ = 0;
+            float distance = float.MaxValue ;
+            for (int i = 0; i < routes.Length; i++)
+            {
+                Route route = routes[i];
+                for (int j = 0; j < route.via.Length; j++)
+                {
+                    FPoint p = route.via[j];
+                    (float x, float y) = (p.x - location.x, p.y - location.y);
+                    float newDistance = (float)Math.Sqrt(x * x + y * y);
+                    if(newDistance<distance)
+                    {
+                        distance = newDistance;
+                        closestJ = j;
+                        closestRoute = route;
+                    }
+                }
+            }
+            if (closestRoute == null) throw new Exception("No route found that has the closest point.");
+            return new Table(constructedSeats,closestJ*Config.Scale, closestRoute, location, size);
         }
 
         // Debugging
@@ -84,7 +104,7 @@ namespace Services_Industry_Simulation.Loader
 
 
         // Static Generate Method
-        public static Table[] GenerateTables(Dictionary<(int, int), TableTile> tiles, char[,] debug)
+        public static Table[] GenerateTables(Dictionary<(int, int), TableTile> tiles, char[,] debug, Route[] routes)
         {
             List<TableConstructor> tables = new List<TableConstructor>();
 
@@ -127,7 +147,7 @@ namespace Services_Industry_Simulation.Loader
             Table[] constructedTables = new Table[tables.Count];
             for (int i = 0; i < tables.Count; i++)
             {
-                constructedTables[i] = tables[i].GenerateTable();
+                constructedTables[i] = tables[i].GenerateTable(routes);
             }
             return constructedTables;
         }

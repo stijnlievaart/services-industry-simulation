@@ -87,7 +87,7 @@ namespace Services_Industry_Simulation.Loader
 
             // Generate the routes
             Route[] routes = RouteConstructor.GenerateRoutes(routeTiles, debug);
-            Table[] tables = TableConstructor.GenerateTables(tableTiles, debug);
+            Table[] tables = TableConstructor.GenerateTables(tableTiles, debug,routes);
 
             // Print Debug
             for (int j = 0; j < debug.GetLength(1); j++)
