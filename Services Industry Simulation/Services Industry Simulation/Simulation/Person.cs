@@ -29,7 +29,7 @@ namespace Services_Industry_Simulation.Simulation
             }
         }
 
-        public void Pathfind(List<Route> options)
+        public void Pathfind(Route[] options)
         {
             Route mainRoute = null;
 

@@ -11,6 +11,7 @@ namespace Services_Industry_Simulation.Loader
         private IPoint end;
         public Type type;
         public List<IPoint> via;
+        public Route constructedRoute;
         public enum Type { Normal = 'N', Pay = 'P', Toilet = 'T', Exit = 'O', Entry = 'I', Staff = 'S' }
         public RouteConstructor(Type type)
         {
@@ -34,18 +35,63 @@ namespace Services_Industry_Simulation.Loader
 
         public Route GenerateRoute()
         {
-            FPoint[] points = new FPoint[via.Count];
+            FPoint[] points = new FPoint[via.Count-1];
+            List<IPoint> bufferFront = new List<IPoint>();
+            points[0] = start.RealWorld;
             for (int i = 0; i < via.Count; i++)
             {
-                points[i] = via[i].RealWorld;
+                IPoint p = via[i];
+                if (p == start)
+                {
+                    for (int j = 0; j < bufferFront.Count; j++)
+                    {
+                        points[1 + j] = bufferFront[bufferFront.Count-j-1].RealWorld;
+                    }
+                    bufferFront = new List<IPoint>();
+                }
+                else if (p == end)
+                {
+                    for (int k = 0; k < bufferFront.Count; k++)
+                    {
+                        points[via.Count-k-2] = bufferFront[(bufferFront.Count-k-1)].RealWorld;
+                    }
+                    bufferFront = new List<IPoint>();
+                }
+                else bufferFront.Add(p);
             }
-            FPoint newEnd = null;
-            FPoint newStart = null;
-            if (end != null) newEnd = end.RealWorld;
-            if (newStart != null) newStart = start.RealWorld;
-            return new Route(newStart, newEnd, points);
+
+
+
+            
+            FPoint newEnd = end.RealWorld;
+            FPoint newStart = start.RealWorld;
+            this.constructedRoute = new Route(newStart, newEnd, points);
+            return constructedRoute;
         }
 
+        public void HandleConnection(Dictionary<(int,int),List<RouteConstructor>> exits)
+        {
+            List<Route> myExits = new List<Route>();
+            (int x, int y) = (end.x, end.y);
+            CheckExit(x + 1, y, myExits, exits);
+            CheckExit(x - 1, y, myExits, exits);
+            CheckExit(x, y + 1, myExits, exits);
+            CheckExit(x, y - 1, myExits, exits);
+            constructedRoute.SetRoutes(myExits.ToArray());
+        }
+
+        private static void CheckExit(int x, int y, List<Route> myExits, Dictionary<(int,int),List<RouteConstructor>> exits)
+        {
+            if (exits.ContainsKey((x, y))) 
+            {
+                List<RouteConstructor> correctExits = exits[(x, y)];
+                for (int i = 0; i < correctExits.Count; i++)
+                {
+                    myExits.Add(correctExits[i].constructedRoute);
+                }
+                
+            }
+        }
 
 
         // Debug
@@ -113,9 +159,22 @@ namespace Services_Industry_Simulation.Loader
 
             // Convert RouteConstructors (local similar class to Route, but with some necessary requirements for creating the route.) to Routes
             Route[] constructedRoutes = new Route[routes.Count];
+            Dictionary<(int, int), List<RouteConstructor>> exits = new Dictionary<(int, int), List<RouteConstructor>>();
+            for (int i = 0; i < routes.Count; i++)
+            {
+                RouteConstructor r = routes[i];
+                if (exits.ContainsKey((r.start.x, r.start.y))) exits[(r.start.x, r.start.y)].Add(r);
+                else exits[(r.start.x, r.start.y)] = new List<RouteConstructor>() { r };
+            }
+
             for (int i = 0; i < routes.Count; i++)
             {
                 constructedRoutes[i] = routes[i].GenerateRoute();
+            }
+
+            for (int i = 0; i < routes.Count; i++)
+            {
+                routes[i].HandleConnection(exits);
             }
             return constructedRoutes;
         }
@@ -147,25 +206,26 @@ namespace Services_Industry_Simulation.Loader
                 if (tiles.ContainsKey(newPair) && !inRoute.ContainsKey(newPair))
                 {
                     RouteTile tileType = tiles[newPair];
+                    IPoint p = new IPoint(newPair);
 
                     // If the type is the same, add it to the route.
                     if (oldTileType == tileType)
                     {
                         inRoute.Add(newPair, newRoute);
-                        CheckTile(newPair, tileType, newRoute, tiles, inRoute);
                     }
 
                     // If the type is an end, make it the route's end.
                     else if (tileType == RouteTile.End)
-                        newRoute.SetEnd(new IPoint(newPair));
+                        newRoute.SetEnd(p);
 
                     // If the type is a start, make it the route's start.
                     else if (tileType == RouteTile.Start)
-                        newRoute.SetStart(new IPoint(newPair));
+                        newRoute.SetStart(p);
 
                     // Else do nothing (so the .Add & break doesn't get triggered when there wasn't anything in this direction)
                     else continue;
-                    newRoute.AddRouteSegment(new IPoint(newPair));
+                    newRoute.AddRouteSegment(p);
+                    if(oldTileType == tileType) CheckTile(newPair, tileType, newRoute, tiles, inRoute);
                 }
 
 

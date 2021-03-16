@@ -18,7 +18,7 @@ namespace Services_Industry_Simulation.Simulation
         private FPoint start;
         private FPoint end;
         public FPoint[] via;
-        public List<Route> exits;
+        public Route[] exits;
         List<Person> peopleOnRoute;
         public Route(FPoint start, FPoint end, FPoint[] via)
         {
@@ -30,9 +30,10 @@ namespace Services_Industry_Simulation.Simulation
             this.routeType = 0; // Todo: assign routetype depending on input
         }
 
-        public void AddExit(Route route)
+        public void SetRoutes(Route[] exits)
         {
-            exits.Add(route);
+            this.exits = exits;
         }
+
     }
 }
