@@ -4,6 +4,17 @@ namespace Services_Industry_Simulation.Simulation
 {
     public class Route
     {
+        public enum RouteType
+        {
+            MainRoute,
+            ToiletRoute,
+            RegisterRoute,
+            KitchenRoute,
+            ExitRoute
+        }
+
+        public RouteType routeType;
+
         private FPoint start;
         private FPoint end;
         public FPoint[] via;
@@ -15,6 +26,8 @@ namespace Services_Industry_Simulation.Simulation
             this.end = end;
             this.via = via; // Todo: sort via from start to end.
             peopleOnRoute = new List<Person>();
+
+            this.routeType = 0; // Todo: assign routetype depending on input
         }
 
         public void AddExit(Route route)
