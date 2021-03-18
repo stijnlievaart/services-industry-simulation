@@ -25,7 +25,6 @@ namespace Services_Industry_Simulation.Simulation
         public Vector2 ToVector()
         {
             return new Vector2(x,y);
-            
         }
 
         public float GetDistance(FPoint firstPoint, FPoint secondPoint)

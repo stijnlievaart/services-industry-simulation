@@ -6,7 +6,7 @@ namespace Services_Industry_Simulation.Simulation
     public class Customer : Person
     {
         Group group;
-        Dictionary<Virus, float> infections;
+        public Dictionary<Virus, float> infections;
         public Seat seat;
 
         public Customer(Group group,Virus virus) : base(virus)
