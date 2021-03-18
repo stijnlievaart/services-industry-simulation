@@ -20,13 +20,13 @@ namespace Services_Industry_Simulation.Simulation
         private FPoint end;
         public FPoint[] via;
         public Route[] exits;
-        public Route(FPoint start, FPoint end, FPoint[] via)
+        public Route(FPoint start, FPoint end, FPoint[] via,RouteType routeType)
         {
             this.start = start;
             this.end = end;
             this.via = via; // Todo: sort via from start to end.
 
-            this.routeType = 0; // Todo: assign routetype depending on input
+            this.routeType = routeType; ; // Todo: assign routetype depending on input
         }
 
         public void SetRoutes(Route[] exits)

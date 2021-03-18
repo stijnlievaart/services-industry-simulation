@@ -13,6 +13,27 @@ namespace Services_Industry_Simulation.Loader
         public List<IPoint> via;
         public Route constructedRoute;
         public enum Type { Normal = 'N', Pay = 'P', Toilet = 'T', Exit = 'O', Entry = 'I', Staff = 'S' }
+
+        public Route.RouteType TypeToRouteType(Type t)
+        {
+            switch(t)
+            {
+                case Type.Entry:
+                    return Route.RouteType.MainRoute;
+                case Type.Exit:
+                    return Route.RouteType.ExitRoute;
+                case Type.Normal:
+                    return Route.RouteType.MainRoute;
+                case Type.Pay:
+                    return Route.RouteType.RegisterRoute;
+                case Type.Staff:
+                    return Route.RouteType.KitchenRoute;
+                case Type.Toilet:
+                    return Route.RouteType.ToiletRoute;
+            }
+            throw new Exception("Type wasnt defined and handled.");
+        }
+
         public RouteConstructor(Type type)
         {
             this.type = type;
@@ -60,12 +81,9 @@ namespace Services_Industry_Simulation.Loader
                 else bufferFront.Add(p);
             }
 
-
-
-            
             FPoint newEnd = end.RealWorld;
             FPoint newStart = start.RealWorld;
-            this.constructedRoute = new Route(newStart, newEnd, points);
+            this.constructedRoute = new Route(newStart, newEnd, points,TypeToRouteType(type));
             return constructedRoute;
         }
 

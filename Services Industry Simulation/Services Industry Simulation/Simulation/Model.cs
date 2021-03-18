@@ -43,8 +43,8 @@ namespace Services_Industry_Simulation.Simulation
                 Route r = routes[i];
                 if (r.routeType == Route.RouteType.ToiletRoute && r.exits.Length == 0) toiletRouteEntry = r;
                 else if (r.routeType == Route.RouteType.ToiletRoute && r.exits.Length > 0) toiletRouteExit = r;
-                else if (r.routeType == Route.RouteType.RegisterRoute && r.exits.Length == 0) staffRouteEnd = r;
-                else if (r.routeType == Route.RouteType.RegisterRoute && r.exits.Length > 0 ) staffRouteStart = r;
+                else if (r.routeType == Route.RouteType.KitchenRoute && r.exits.Length == 0) staffRouteEnd = r;
+                else if (r.routeType == Route.RouteType.KitchenRoute && r.exits.Length > 0 ) staffRouteStart = r;
             }
 
             if (staffRouteStart == null || staffRouteEnd == null || toiletRouteEntry == null || toiletRouteExit == null) throw new System.Exception("Not all necesary routes are available.");
