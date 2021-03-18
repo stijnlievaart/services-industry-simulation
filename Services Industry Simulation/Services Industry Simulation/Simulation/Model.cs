@@ -61,7 +61,7 @@ namespace Services_Industry_Simulation.Simulation
 
             staffManager.Update(this);
 
-            GenerateNewGroups();
+            if(Time%60==0) GenerateNewGroups();
 
             time++;
 
@@ -89,7 +89,7 @@ namespace Services_Industry_Simulation.Simulation
         public void GenerateNewGroups()
         {
             int currentCustomers = GetAmountOfCustomers();
-            while(currentCustomers<maxSeating&&emptyTables.Count>0)
+            if(currentCustomers<maxSeating&&emptyTables.Count>0)
             {
                 Table t = emptyTables.Dequeue();
 
@@ -105,6 +105,14 @@ namespace Services_Industry_Simulation.Simulation
                 }
 
                 t.SetGroup(g);
+
+                AddEvent(new TaskEvent(Time + 60, t));
+                AddEvent(new TaskEvent(Time + 180, t));
+                for (int i = 0; i < customers.Count; i++)
+                {
+                    AddEvent(new GoToToiletEvent(Time + ((100 * i) % 3600), customers[i]));
+                }
+                AddEvent(new TaskEvent(Time + 780, t));
             }
         }
 

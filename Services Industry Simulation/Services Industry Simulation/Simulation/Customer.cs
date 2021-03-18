@@ -101,7 +101,7 @@ namespace Services_Industry_Simulation.Simulation
             this.onRouteLocation = group.table.onRouteLocation;
             this.goalRoute = goalRoute;
             this.goalRouteLocation = goalRouteDestination;
-            // Add user to model'S LIST OF MOVERS
+            model.peopleWalking.Add(this);
         }
     }
 

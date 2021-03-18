@@ -65,7 +65,7 @@
 
         public override void Process(Model model)
         {
-            customer.goalRoute = model.toiletRouteEntry;
+            customer.StartRouteTo(model, model.toiletRouteEntry, model.toiletRouteEntry.via.Length);
         }
     }
 
