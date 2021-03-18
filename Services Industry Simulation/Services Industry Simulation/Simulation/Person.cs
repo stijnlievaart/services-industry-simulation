@@ -39,9 +39,7 @@ namespace Services_Industry_Simulation.Simulation
         {
             Route oldRoute = onRoute;
             float oldOnRouteLocation = onRouteLocation;
-            
-
-
+            FPoint oldExactLocation = exactLocation;
             if (goalRoute == null)
             {
                 return;
@@ -70,7 +68,15 @@ namespace Services_Industry_Simulation.Simulation
             
             exactLocation = onRoute.via[(int)onRouteLocation];
 
-            oldLocation = exactLocation;
+            if (CheckIfSafe(model, exactLocation))
+            {
+                oldLocation = exactLocation;
+            }
+            else
+            {
+                onRoute = oldRoute;
+                onRouteLocation = oldOnRouteLocation;
+            }
         }
 
         public bool CheckIfSafe(Model model,FPoint newLocation)
