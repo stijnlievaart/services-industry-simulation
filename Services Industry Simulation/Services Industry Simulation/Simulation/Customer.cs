@@ -84,7 +84,7 @@ namespace Services_Industry_Simulation.Simulation
             for (int i = 0; i < model.tables.Length; i++)
             {
                 Table t = model.tables[i];
-                if (t == group.table) continue;
+                if (t == group.table || t.activeGroup == null) continue;
 
                 for (int j = 0; j < t.activeGroup.customers.Count; j++)
                 {

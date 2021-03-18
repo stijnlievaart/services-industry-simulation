@@ -135,6 +135,7 @@ namespace Services_Industry_Simulation.Simulation
                     g.AddCustomer(c);
                     c.exactLocation = entryRoute.start;
                     c.StartRouteTo(entryRoute, 0, exitRoute, exitRoute.via.Length, this);
+                    customers.Add(c);
                 }
 
                 t.SetGroup(g);

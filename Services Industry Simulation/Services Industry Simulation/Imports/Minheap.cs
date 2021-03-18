@@ -62,6 +62,7 @@ namespace Services_Industry_Simulation.Imports
 
         public void Add(Event element)
         {
+            if (_elements.Count == _size) _elements.Add(Event.Empty);
             _elements[_size] = element;
             _size++;
 

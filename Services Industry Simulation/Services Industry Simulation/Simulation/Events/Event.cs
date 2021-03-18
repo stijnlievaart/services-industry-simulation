@@ -2,6 +2,14 @@
 {
     public abstract class Event
     {
+        private static Event e = new TaskEvent(1,null);
+        public static Event Empty
+        {
+            get
+            {
+                return e;
+            }
+        }
         private int pos;
         public int Position
         {
