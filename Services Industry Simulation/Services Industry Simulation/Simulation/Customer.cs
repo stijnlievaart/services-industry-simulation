@@ -81,14 +81,14 @@ namespace Services_Industry_Simulation.Simulation
                 for (int j = 0; j < t.activeGroup.customers.Count; j++)
                 {
                     Customer p = t.activeGroup.customers[j];
-                    //this.DoInfection(p);
+                    this.DoInfection(p);
                 }
             }
 
             for (int j = 0; j < model.staffManager.staff.Length; j++)
             {
                 Staff p = model.staffManager.staff[j];
-                // this.DoInfection(p);
+                this.DoInfection(p);
             }
         }
 
