@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 
 namespace Services_Industry_Simulation.Simulation
 {
@@ -35,6 +36,10 @@ namespace Services_Industry_Simulation.Simulation
             return (float)(1 /Math.Abs(Math.Pow(distance+1,3)));
         }
 
+        public void DrawCustomer(Graphics gr)
+        {
+            gr.FillEllipse(Brushes.HotPink, exactLocation.x * 20, exactLocation.y * 20, 20, 20);
+        }
 
         public void DoInfection(Person secondPerson)
         {

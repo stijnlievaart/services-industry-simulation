@@ -1,4 +1,6 @@
-﻿namespace Services_Industry_Simulation.Simulation
+﻿using System.Drawing;
+
+namespace Services_Industry_Simulation.Simulation
 {
     public class Staff : Person
     {
@@ -13,6 +15,11 @@
         public override void Update(Model model)
         {
             Move(model);
+        }
+
+        public void DrawStaff(Graphics gr)
+        {
+            gr.FillEllipse(Brushes.DarkOliveGreen, exactLocation.x * 20, exactLocation.y * 20, 20, 20);
         }
 
         public override void Arrival(GoalType goal,Model model)

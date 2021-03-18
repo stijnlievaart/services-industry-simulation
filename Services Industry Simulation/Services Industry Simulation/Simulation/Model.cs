@@ -1,5 +1,7 @@
 ﻿using Services_Industry_Simulation.Imports;
 using System.Collections.Generic;
+using System.Drawing;
+using System.Linq;
 namespace Services_Industry_Simulation.Simulation
 {
     public class Model
@@ -71,7 +73,7 @@ namespace Services_Industry_Simulation.Simulation
                 tables[i].Update(this);
             }
 
-            toiletManager.Update(this);
+            //toiletManager.Update(this);
 
             staffManager.Update(this);
 
@@ -94,6 +96,21 @@ namespace Services_Industry_Simulation.Simulation
             }
         }
 
+        public void DrawModel(Graphics gr)
+        {
+            foreach (Table table in tables)
+            {
+                table.DrawTable(gr);
+            }
+            foreach (Person person in peopleWalking)
+            {
+                var staff = person as Staff;
+                if(staff != null)
+                {
+                    staff.DrawStaff(gr);
+                }
+            }
+        }
 
         public void AddEvent(Event e)
         {

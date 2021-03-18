@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.Drawing;
+
 namespace Services_Industry_Simulation.Simulation
 {
     public class Table
@@ -38,7 +40,19 @@ namespace Services_Industry_Simulation.Simulation
 
         public void Update(Model model)
         {
+            if (activeGroup == null)
+                return;
             activeGroup.Update(model);
         }
+
+        public void DrawTable(Graphics gr)
+        {
+            if (activeGroup != null)
+            {
+                activeGroup.DrawGroup(gr);
+            }
+            return;
+        }
+
     }
 }

@@ -31,24 +31,36 @@ namespace Services_Industry_Simulation
 
         protected override void OnPaint(PaintEventArgs e)
         {
+            
             if (loadedModel == null)
                 return;
+            
             pictureBox1.Image = GetImageFromModel(loadedModel);
+            
 
             base.OnPaint(e);
         }
 
         private Bitmap GetImageFromModel(Simulation.Model model)
         {
-            //model.
+            
             Bitmap bmp = new Bitmap(background.Width *22 , background.Height*22);
             using (Graphics gr = Graphics.FromImage(bmp))
             {
+                gr.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.HighQuality;
                 gr.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.NearestNeighbor;
                 gr.DrawImage(background,0,0,background.Width*20,background.Height*20);
+
+                model.DrawModel(gr);
             }
 
             return bmp;
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            loadedModel.Update();
+            this.Invalidate();
         }
     }
 }

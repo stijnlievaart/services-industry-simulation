@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Drawing;
 
 namespace Services_Industry_Simulation.Simulation
 {
@@ -46,6 +47,14 @@ namespace Services_Industry_Simulation.Simulation
             for (int i = 0; i < customers.Count; i++)
             {
                 customers[i].StartRouteTo(model, model.exitRoute, model.exitRoute.via.Length);
+            }
+        }
+        
+        public void DrawGroup(Graphics gr)
+        {
+            foreach(Customer customer in customers)
+            {
+                customer.DrawCustomer(gr);
             }
         }
 
