@@ -133,6 +133,8 @@ namespace Services_Industry_Simulation.Simulation
                 {
                     Customer c = new Customer(g, virus);
                     g.AddCustomer(c);
+                    c.exactLocation = entryRoute.start;
+                    c.StartRouteTo(entryRoute, 0, exitRoute, exitRoute.via.Length, this);
                 }
 
                 t.SetGroup(g);
