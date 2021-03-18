@@ -24,8 +24,13 @@ namespace Services_Industry_Simulation.Simulation
         {
 
             // Allow new guest into toilet.
-            Customer newToileter = queueForToilet.Dequeue();
-            if (queueForToilet.Count > 0 && inToilet.Count < max) inToilet.Enqueue(newToileter);
+
+            if (queueForToilet.Count > 0 && inToilet.Count < max)
+            {
+                Customer newToileter = queueForToilet.Dequeue();
+                newToileter.exactLocation.x = 1000;
+                inToilet.Enqueue(newToileter);
+            }
             model.AddEvent(new ToiletFinishedEvent(model.Time + Config.SecondsInToilet));
         }
 

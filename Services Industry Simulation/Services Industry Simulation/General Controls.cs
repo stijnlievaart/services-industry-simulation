@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Services_Industry_Simulation.Simulation;
+using System;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -36,8 +37,24 @@ namespace Services_Industry_Simulation
                 return;
             
             pictureBox1.Image = GetImageFromModel(loadedModel);
-            
+            string str = "";
+            for (int i = 0; i < loadedModel.tables.Length; i++)
+            {
+                Table t = loadedModel.tables[i];
+                if (t.activeGroup == null) continue;
+                str += "Table " + i.ToString() + " (with " + t.activeGroup.customers.Count.ToString()+"/"+t.seats.Length.ToString()+" seats used):\n";
 
+                for (int j = 0; j < t.activeGroup.customers.Count; j++)
+                {
+                    Customer c = t.activeGroup.customers[j];
+                    str += "  Customer " + j.ToString() + ":\n";
+                    str += "    Walking: " + c.onRoute!=null + ":\n";
+                    str += "    Walking to: " + c.goalRoute.routeType.ToString()+"," + c.goalRouteLocation.ToString()+  ":\n";
+                }
+
+            }
+
+            richTextBox1.Text = str;
             base.OnPaint(e);
         }
 
@@ -61,6 +78,11 @@ namespace Services_Industry_Simulation
         {
             loadedModel.Update();
             this.Invalidate();
+        }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
