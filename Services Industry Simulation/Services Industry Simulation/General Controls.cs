@@ -8,6 +8,7 @@ namespace Services_Industry_Simulation
     {
         Simulation.Model loadedModel = null;
         Bitmap background;
+
         public Form1()
         {
             InitializeComponent();
@@ -26,6 +27,28 @@ namespace Services_Industry_Simulation
             // Load Model from wrapper
             loadedModel = modelWrapper.model;
             background = modelWrapper.bmp;
+        }
+
+        protected override void OnPaint(PaintEventArgs e)
+        {
+            if (loadedModel == null)
+                return;
+            pictureBox1.Image = GetImageFromModel(loadedModel);
+
+            base.OnPaint(e);
+        }
+
+        private Bitmap GetImageFromModel(Simulation.Model model)
+        {
+            //model.
+            Bitmap bmp = new Bitmap(background.Width *22 , background.Height*22);
+            using (Graphics gr = Graphics.FromImage(bmp))
+            {
+                gr.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.NearestNeighbor;
+                gr.DrawImage(background,0,0,background.Width*20,background.Height*20);
+            }
+
+            return bmp;
         }
     }
 }

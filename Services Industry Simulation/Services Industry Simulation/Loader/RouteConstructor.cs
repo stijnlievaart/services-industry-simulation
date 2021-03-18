@@ -113,7 +113,8 @@ namespace Services_Industry_Simulation.Loader
 
 
         // Debug
-        private static void PrimitivePrintRoute(char[,] debug, RouteConstructor[] routes)
+
+/*        private static void PrimitivePrintRoute(char[,] debug, RouteConstructor[] routes)
         {
             for (int i = 0; i < routes.Length; i++)
             {
@@ -125,8 +126,7 @@ namespace Services_Industry_Simulation.Loader
                     else debug[point.x, point.y] = (char)r.type;
                 }
             }
-
-        }
+        }*/
 
 
 
@@ -173,7 +173,7 @@ namespace Services_Industry_Simulation.Loader
             }
 
             // Debug: 
-            PrimitivePrintRoute(debug, routes.ToArray());
+            //PrimitivePrintRoute(debug, routes.ToArray());
 
             // Convert RouteConstructors (local similar class to Route, but with some necessary requirements for creating the route.) to Routes
             Route[] constructedRoutes = new Route[routes.Count];

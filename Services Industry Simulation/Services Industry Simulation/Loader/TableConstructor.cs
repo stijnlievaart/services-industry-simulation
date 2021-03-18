@@ -77,7 +77,7 @@ namespace Services_Industry_Simulation.Loader
             if (closestRoute == null) throw new Exception("No route found that has the closest point.");
             return new Table(constructedSeats,closestJ*Config.Scale, closestRoute, location, size);
         }
-
+        /*
         // Debugging
         static void PrimitivePrintTable(char[,] debug, TableConstructor[] tables)
         {
@@ -101,6 +101,7 @@ namespace Services_Industry_Simulation.Loader
             }
 
         }
+        */
 
 
         // Static Generate Method
@@ -141,7 +142,7 @@ namespace Services_Industry_Simulation.Loader
             }
 
             // Debug: 
-            PrimitivePrintTable(debug, tables.ToArray());
+            //PrimitivePrintTable(debug, tables.ToArray());
 
             // Convert RouteConstructors (local similar class to Route, but with some necessary requirements for creating the route.) to Routes
             Table[] constructedTables = new Table[tables.Count];
