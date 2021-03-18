@@ -80,6 +80,7 @@
     <Compile Include="Simulation\StaffManager.cs" />
     <Compile Include="Simulation\Customer.cs" />
     <Compile Include="Simulation\Group.cs" />
+    <Compile Include="Simulation\ToiletManager.cs" />
     <Compile Include="Simulation\Virus.cs" />
     <Compile Include="Simulation\Person.cs" />
     <Compile Include="Simulation\Model.cs" />

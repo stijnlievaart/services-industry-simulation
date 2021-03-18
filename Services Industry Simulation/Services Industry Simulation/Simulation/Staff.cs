@@ -34,5 +34,10 @@
             this.goalRoute = table.onRoute;
             this.goalRouteLocation = table.onRouteLocation;
         }
+
+        public override void StartRouteTo(Model model, Route goalRoute, float goalRouteDestination)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

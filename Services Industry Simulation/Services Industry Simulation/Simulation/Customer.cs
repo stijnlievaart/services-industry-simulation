@@ -58,11 +58,6 @@ namespace Services_Industry_Simulation.Simulation
                 this.goalRoute = null;
                 this.exactLocation = seat.location;
             }
-            if (goal == GoalType.Toilet)
-            {
-                this.goalRoute = null;
-                
-            }
             else if(goal == GoalType.Toilet)
             {
                 model.toiletManager.EnqueueCustomer(this);
