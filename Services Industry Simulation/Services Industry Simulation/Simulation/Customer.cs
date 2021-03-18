@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Services_Industry_Simulation.Loader;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 
@@ -38,7 +39,7 @@ namespace Services_Industry_Simulation.Simulation
 
         public void DrawCustomer(Graphics gr)
         {
-            gr.FillEllipse(Brushes.HotPink, exactLocation.x * 20, exactLocation.y * 20, 20, 20);
+            gr.FillEllipse(Brushes.HotPink, exactLocation.x * 20 / Config.Scale, exactLocation.y * 20 / Config.Scale, 20, 20);
         }
 
         public void DoInfection(Person secondPerson)
