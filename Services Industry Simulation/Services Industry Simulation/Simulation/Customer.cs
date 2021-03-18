@@ -50,9 +50,38 @@ namespace Services_Industry_Simulation.Simulation
             }
         }
 
-        public override void Arrival(GoalType goal)
+        public override void Arrival(GoalType goal,Model model)
         {
             
+        }
+
+        public override void Update(Model model)
+        {
+            Move(model);
+
+            CalculateInfections(model);
+
+        }
+
+        private void CalculateInfections(Model model)
+        {
+            for (int i = 0; i < model.tables.Length; i++)
+            {
+                Table t = model.tables[i];
+                if (t == group.table) continue;
+
+                for (int j = 0; j < t.activeGroup.customers.Count; j++)
+                {
+                    Customer p = t.activeGroup.customers[j];
+                    //this.DoInfection(p);
+                }
+            }
+
+            for (int j = 0; j < model.staffManager.staff.Length; j++)
+            {
+                Staff p = model.staffManager.staff[j];
+                // this.DoInfection(p);
+            }
         }
     }
 

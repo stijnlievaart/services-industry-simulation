@@ -4,7 +4,7 @@ namespace Services_Industry_Simulation.Simulation
 {
     public class StaffManager
     {
-        Staff[] staff;
+        public Staff[] staff;
         Virus virus;
         Queue<Table> tasksToDo;
 
@@ -25,6 +25,9 @@ namespace Services_Industry_Simulation.Simulation
 
         public int MaxStaff { get { return staff.Length; } }
 
-
+        public void StaffIsAvailable(Staff f)
+        {
+            availableStaff.Enqueue(f);
+        }
     }
 }

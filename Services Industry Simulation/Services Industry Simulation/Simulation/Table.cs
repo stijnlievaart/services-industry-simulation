@@ -30,5 +30,10 @@ namespace Services_Industry_Simulation.Simulation
             }
             activeGroup = group;
         }
+
+        public void Update(Model model)
+        {
+            activeGroup.Update(model);
+        }
     }
 }

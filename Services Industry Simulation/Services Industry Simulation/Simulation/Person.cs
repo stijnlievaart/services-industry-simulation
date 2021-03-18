@@ -35,7 +35,7 @@ namespace Services_Industry_Simulation.Simulation
         /// <summary>
         /// Handles all types of movement every tick
         /// </summary>
-        public void Move()
+        public void Move(Model model)
         {
             if (goalRoute == null)
             {
@@ -45,7 +45,7 @@ namespace Services_Industry_Simulation.Simulation
             {
                 if (onRouteLocation + speed >= goalRouteLocation)
                 {
-                    Arrival((GoalType)goalRoute.routeType);
+                    Arrival((GoalType)goalRoute.routeType,model);
                     return;
                 }
                 else
@@ -118,6 +118,10 @@ namespace Services_Industry_Simulation.Simulation
         /// Function to be called upon arrival to destination
         /// </summary>
         /// <param name="goal"></param>
-        public abstract void Arrival(GoalType goal);
+        public abstract void Arrival(GoalType goal,Model model);
+
+        public abstract void Update(Model model);
+
+
     }
 }

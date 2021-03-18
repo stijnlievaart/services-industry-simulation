@@ -4,9 +4,11 @@ namespace Services_Industry_Simulation.Simulation
 {
     public class Model
     {
-        Table[] tables;
+        public Table[] tables;
         Route[] routes;
-        StaffManager staffManager;
+        public readonly Route staffRouteStart;
+        public readonly Route staffRouteEnd;
+        public StaffManager staffManager;
         MinHeap events;
         public Model(Table[] tables, Route[] routes, int maxStaff)
         {
@@ -14,6 +16,14 @@ namespace Services_Industry_Simulation.Simulation
             this.routes = routes;
             events = new MinHeap();
             staffManager = new StaffManager(maxStaff);
+        }
+
+        public void Update()
+        {
+            for (int i = 0; i < tables.Length; i++)
+            {
+                tables[i].Update(this);
+            }
         }
     }
 }

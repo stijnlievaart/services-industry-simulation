@@ -1,15 +1,30 @@
 ﻿namespace Services_Industry_Simulation.Simulation
 {
-    class Staff : Person
+    public class Staff : Person
     {
         public Staff(Virus virus) : base(virus)
         {
 
         }
 
-        public override void Arrival(GoalType goal)
+        public override void Update(Model model)
         {
-            throw new System.NotImplementedException();
+            Move(model);
+        }
+
+        public override void Arrival(GoalType goal,Model model)
+        {
+            if (goal == GoalType.Table)
+            {
+                this.goalRoute = model.staffRouteEnd;
+                this.goalRouteLocation = model.staffRouteEnd.via.Length;
+            }
+            else if(goal==GoalType.Kitchen)
+            {
+                model.staffManager.StaffIsAvailable(this);
+                this.goalRoute = null;
+                this.goalRouteLocation = 0;
+            }
         }
     }
 }
