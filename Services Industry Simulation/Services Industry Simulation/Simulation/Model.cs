@@ -13,6 +13,11 @@ namespace Services_Industry_Simulation.Simulation
         MinHeap events;
         Queue<Table> emptyTables;
         int time;
+
+
+        HashSet<Person> peopleWalking;
+
+
         public Model(Table[] tables, Route[] routes, int maxStaff, int maxSeating)
         {
             time = 0;
@@ -26,6 +31,7 @@ namespace Services_Industry_Simulation.Simulation
             this.routes = routes;
             events = new MinHeap();
             staffManager = new StaffManager(maxStaff);
+            peopleWalking = new HashSet<Person>();
         }
 
         public void Update()
@@ -73,6 +79,11 @@ namespace Services_Industry_Simulation.Simulation
                 sum += tables[i].activeGroup.customers.Count;
             }
             return sum;
+        }
+
+        public void RemoveFromWalking(Person person)
+        {
+            peopleWalking.Remove(person);
         }
     }
 }

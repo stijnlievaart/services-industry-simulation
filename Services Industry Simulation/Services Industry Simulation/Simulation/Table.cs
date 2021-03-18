@@ -11,6 +11,8 @@ namespace Services_Industry_Simulation.Simulation
         public List<Group> pastGroups;
         readonly public FPoint location;
         readonly public FPoint size;
+        public int numberOfSeats;
+        
 
         public Table(Seat[] seats, float onRouteLocation, Route onRoute, FPoint location, FPoint size)
         {
@@ -20,6 +22,7 @@ namespace Services_Industry_Simulation.Simulation
             this.onRouteLocation = onRouteLocation;
             this.onRoute = onRoute;
             this.pastGroups = new List<Group>();
+            this.numberOfSeats = seats.Length;
         }
 
         public void SetGroup(Group group)
@@ -29,6 +32,8 @@ namespace Services_Industry_Simulation.Simulation
                 pastGroups.Add(activeGroup);
             }
             activeGroup = group;
+
+            activeGroup.GetSeats();
         }
 
         public void Update(Model model)
