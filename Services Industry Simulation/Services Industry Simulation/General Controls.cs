@@ -43,14 +43,17 @@ namespace Services_Industry_Simulation
                 Table t = loadedModel.tables[i];
                 if (t.activeGroup == null) continue;
                 str += "Table " + i.ToString() + " (with " + t.activeGroup.customers.Count.ToString()+"/"+t.seats.Length.ToString()+" seats used):\n";
-
+                str += "\tLocation: " + t.onRouteLocation.ToString()+"\n";
+                str += "\n";
                 for (int j = 0; j < t.activeGroup.customers.Count; j++)
                 {
                     Customer c = t.activeGroup.customers[j];
-                    bool isWalking = c.onRoute != null;
+                    bool isWalking = c.goalRoute != null;
                     str += "\tCustomer " + j.ToString() + ":\n";
-                    str += "\t\tWalking: " + (isWalking).ToString() + ":\n";
+                    str += "\t\tLocation: (" + c.exactLocation.x + "; " + c.exactLocation.y + ")\n";
+                    str += "\t\tWalking: " + (isWalking).ToString() + "\n";
                     if(isWalking)str += "\t\t\tWalking to: " + c.goalRoute.routeType.ToString()+"," + c.goalRouteLocation.ToString()+  ":\n";
+                    if(isWalking)str += "\t\t\tWalking from: " + c.onRoute.routeType.ToString()+"," + c.onRouteLocation.ToString()+  ":\n";
                     str += "\n";
                 }
                     

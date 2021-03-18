@@ -17,6 +17,7 @@ namespace Services_Industry_Simulation.Simulation
         public readonly float registerLocation;
         public readonly Route exitRoute;
         public readonly Route entryRoute;
+        public readonly float Scale;
         public StaffManager staffManager;
         public ToiletManager toiletManager;
         MinHeap events;
@@ -28,9 +29,9 @@ namespace Services_Industry_Simulation.Simulation
         public HashSet<Person> peopleWalking;
 
 
-        public Model(Table[] tables, Route[] routes,int closestJ, int maxStaff, int maxSeating, int maxToilet, bool payAtRegister)
+        public Model(Table[] tables, Route[] routes,int closestJ, int maxStaff, int maxSeating, int maxToilet, bool payAtRegister, float scale)
         {
-
+            this.Scale = scale;
             for (int i = 0; i < routes.Length; i++)
             {
                 Route r = routes[i];
@@ -134,7 +135,7 @@ namespace Services_Industry_Simulation.Simulation
                     Customer c = new Customer(g, virus);
                     g.AddCustomer(c);
                     c.exactLocation = entryRoute.start;
-                    c.StartRouteTo(entryRoute, 0, exitRoute, exitRoute.via.Length, this);
+                    c.StartRouteTo(entryRoute, 0, c.group.table.onRoute, c.group.table.onRouteLocation, this);
                     customers.Add(c);
                 }
 
@@ -144,7 +145,7 @@ namespace Services_Industry_Simulation.Simulation
                 AddEvent(new TaskEvent(Time + 180, t));
                 for (int i = 0; i < customers.Count; i++)
                 {
-                    AddEvent(new GoToToiletEvent(Time + ((100 * i) % 3600), customers[i]));
+                    AddEvent(new GoToToiletEvent(Time + 100+ ((100 * i) % 3600), customers[i]));
                 }
                 AddEvent(new TaskEvent(Time + 780, t));
 

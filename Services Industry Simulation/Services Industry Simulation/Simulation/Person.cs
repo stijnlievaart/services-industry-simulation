@@ -88,6 +88,7 @@ namespace Services_Industry_Simulation.Simulation
             {
                 if (person == this)
                     continue;
+                if (person.GetType() == typeof(Customer) && this.GetType() == typeof(Customer) && ((Customer)(person)).group == ((Customer)this).group) continue;
                 currentDistance = newLocation.GetDistance(person.exactLocation);
                 if (minDistance == -1)
                     minDistance = currentDistance;
@@ -108,7 +109,7 @@ namespace Services_Industry_Simulation.Simulation
             
             foreach (Route route in options)
             {
-                if (route.routeType == goalRoute.routeType)
+                if (route == goalRoute)
                 {
                     onCorrectRoute = true;
                     onRoute = route;
