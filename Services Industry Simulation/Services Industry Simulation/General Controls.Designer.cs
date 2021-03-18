@@ -98,6 +98,7 @@ namespace Services_Industry_Simulation
             this.button3.TabIndex = 5;
             this.button3.Text = "Tick 1000x";
             this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click_1);
             // 
             // Form1
             // 
