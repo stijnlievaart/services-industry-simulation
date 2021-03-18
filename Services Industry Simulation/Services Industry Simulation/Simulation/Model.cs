@@ -10,12 +10,17 @@ namespace Services_Industry_Simulation.Simulation
         public readonly Route staffRouteEnd;
         public StaffManager staffManager;
         MinHeap events;
+
+        HashSet<Person> peopleWalking;
+
+
         public Model(Table[] tables, Route[] routes, int maxStaff)
         {
             this.tables = tables;
             this.routes = routes;
             events = new MinHeap();
             staffManager = new StaffManager(maxStaff);
+            peopleWalking = new HashSet<Person>();
         }
 
         public void Update()
@@ -24,6 +29,11 @@ namespace Services_Industry_Simulation.Simulation
             {
                 tables[i].Update(this);
             }
+        }
+
+        public void RemoveFromWalking(Person person)
+        {
+            peopleWalking.Remove(person);
         }
     }
 }

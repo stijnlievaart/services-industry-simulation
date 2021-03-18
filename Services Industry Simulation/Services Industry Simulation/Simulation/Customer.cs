@@ -7,6 +7,7 @@ namespace Services_Industry_Simulation.Simulation
     {
         Group group;
         Dictionary<Virus, float> infections;
+        public Seat seat;
 
         public Customer(Group group,Virus virus) : base(virus)
         {
@@ -52,7 +53,10 @@ namespace Services_Industry_Simulation.Simulation
 
         public override void Arrival(GoalType goal,Model model)
         {
-            
+            if (goal == GoalType.Table)
+            {
+
+            }
         }
 
         public override void Update(Model model)

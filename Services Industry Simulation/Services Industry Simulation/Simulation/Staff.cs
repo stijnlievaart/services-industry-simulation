@@ -24,6 +24,8 @@
                 model.staffManager.StaffIsAvailable(this);
                 this.goalRoute = null;
                 this.goalRouteLocation = 0;
+
+                model.RemoveFromWalking(this);
             }
         }
     }
