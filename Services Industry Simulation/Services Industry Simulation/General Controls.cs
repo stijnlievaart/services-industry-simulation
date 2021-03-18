@@ -47,11 +47,13 @@ namespace Services_Industry_Simulation
                 for (int j = 0; j < t.activeGroup.customers.Count; j++)
                 {
                     Customer c = t.activeGroup.customers[j];
-                    str += "  Customer " + j.ToString() + ":\n";
-                    str += "    Walking: " + c.onRoute!=null + ":\n";
-                    str += "    Walking to: " + c.goalRoute.routeType.ToString()+"," + c.goalRouteLocation.ToString()+  ":\n";
+                    bool isWalking = c.onRoute != null;
+                    str += "\tCustomer " + j.ToString() + ":\n";
+                    str += "\t\tWalking: " + (isWalking).ToString() + ":\n";
+                    if(isWalking)str += "\t\t\tWalking to: " + c.goalRoute.routeType.ToString()+"," + c.goalRouteLocation.ToString()+  ":\n";
+                    str += "\n";
                 }
-
+                    
             }
 
             richTextBox1.Text = str;
