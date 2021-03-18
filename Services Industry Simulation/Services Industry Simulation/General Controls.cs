@@ -89,5 +89,21 @@ namespace Services_Industry_Simulation
         {
 
         }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            for (int i = 0; i < 10; i++)
+            {
+                loadedModel.Update();
+            }
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            for (int i = 0; i < 1000; i++)
+            {
+                loadedModel.Update();
+            }
+        }
     }
 }

@@ -73,7 +73,7 @@
 
         public override void Process(Model model)
         {
-            customer.StartRouteTo(model, model.toiletRouteEntry, model.toiletRouteEntry.via.Length);
+            customer.StartRouteTo(model, model.toiletRouteEntry, model.toiletRouteEntry.via.Length*model.Scale);
         }
     }
 

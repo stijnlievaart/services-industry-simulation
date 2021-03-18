@@ -12,7 +12,7 @@ namespace Services_Industry_Simulation.Simulation
         public float goalRouteLocation;
         public FPoint exactLocation;
         public FPoint oldLocation;
-        private readonly float speed = 1.0f; //TODO: decide on speed value
+        private readonly float speed = 0.5f; //TODO: decide on speed value
         private bool onCorrectRoute;
 
         public Vector2 lookAngle;
@@ -48,6 +48,7 @@ namespace Services_Industry_Simulation.Simulation
             {
                 if (onRouteLocation + speed >= goalRouteLocation)
                 {
+                    onCorrectRoute = false;
                     Arrival((GoalType)goalRoute.routeType,model);
                     return;
                 }
@@ -56,7 +57,7 @@ namespace Services_Industry_Simulation.Simulation
                     onRouteLocation += speed;
                 }
             }
-            else if (onRouteLocation + speed >= onRoute.via.Length)  // Check whether moving puts person of the current route
+            else if (onRouteLocation + speed >= onRoute.via.Length*model.Scale)  // Check whether moving puts person of the current route
             {
                 Pathfind(onRoute.exits);
                 onRouteLocation = 0;   
@@ -66,7 +67,7 @@ namespace Services_Industry_Simulation.Simulation
                 onRouteLocation += speed;
             }
             
-            exactLocation = onRoute.via[(int)onRouteLocation];
+            exactLocation = onRoute.via[(int)(onRouteLocation/model.Scale)];
 
             if (CheckIfSafe(model, exactLocation))
             {

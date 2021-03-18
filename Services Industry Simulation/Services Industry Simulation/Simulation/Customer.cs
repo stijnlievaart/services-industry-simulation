@@ -67,6 +67,7 @@ namespace Services_Industry_Simulation.Simulation
             else if(goal == GoalType.Toilet)
             {
                 model.toiletManager.EnqueueCustomer(this);
+                this.goalRoute = null;
             }
 
             model.RemoveFromWalking(this);

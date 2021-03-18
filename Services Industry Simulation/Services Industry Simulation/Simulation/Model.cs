@@ -78,6 +78,8 @@ namespace Services_Industry_Simulation.Simulation
 
             staffManager.Update(this);
 
+            toiletManager.Update(this);
+
             if(Time%60==0) GenerateNewGroups();
 
             time++;
