@@ -26,5 +26,11 @@
                 this.goalRouteLocation = 0;
             }
         }
+
+        public void DoTask(Table table)
+        {
+            this.goalRoute = table.onRoute;
+            this.goalRouteLocation = table.onRouteLocation;
+        }
     }
 }

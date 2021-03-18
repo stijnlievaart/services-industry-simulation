@@ -29,5 +29,15 @@ namespace Services_Industry_Simulation.Simulation
         {
             availableStaff.Enqueue(f);
         }
+
+        public void GiveTask(TaskEvent task)
+        {
+            tasksToDo.Enqueue(task.table);
+        }
+
+        public void Update(Model model)
+        {
+            while (availableStaff.Count > 0 && tasksToDo.Count > 0) availableStaff.Dequeue().DoTask(tasksToDo.Dequeue());
+        }
     }
 }

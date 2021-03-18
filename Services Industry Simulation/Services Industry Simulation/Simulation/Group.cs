@@ -14,6 +14,11 @@ namespace Services_Industry_Simulation.Simulation
             this.customers = customers;
             this.table = table;
         }
+
+        public void AddCustomer(Customer customer)
+        {
+            customers.Add(customer);
+        }
             
         public void Update(Model model)
         {
