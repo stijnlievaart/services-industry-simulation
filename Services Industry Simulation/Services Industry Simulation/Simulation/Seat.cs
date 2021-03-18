@@ -2,7 +2,7 @@
 {
     public class Seat
     {
-        FPoint location; // world coordinates of left bottom part of seat
+        public FPoint location; // world coordinates of left bottom part of seat
         Table table;
 
         public Seat(FPoint location)

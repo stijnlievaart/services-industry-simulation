@@ -37,6 +37,11 @@ namespace Services_Industry_Simulation.Simulation
         /// </summary>
         public void Move(Model model)
         {
+            Route oldRoute = onRoute;
+            float oldOnRouteLocation = onRouteLocation;
+            
+
+
             if (goalRoute == null)
             {
                 return;
@@ -51,22 +56,40 @@ namespace Services_Industry_Simulation.Simulation
                 else
                 {
                     onRouteLocation += speed;
-                    return;
                 }
             }
             else if (onRouteLocation + speed >= onRoute.via.Length)  // Check whether moving puts person of the current route
             {
                 Pathfind(onRoute.exits);
-                onRouteLocation = 0;
-                return;
-                
+                onRouteLocation = 0;   
             }
             else
             {
                 onRouteLocation += speed;
             }
-            oldLocation = exactLocation;
+            
             exactLocation = onRoute.via[(int)onRouteLocation];
+
+            oldLocation = exactLocation;
+        }
+
+        public bool CheckIfSafe(Model model,FPoint newLocation)
+        {
+            float minDistance = -1;
+            float currentDistance;
+
+            foreach (Person person in model.peopleWalking)
+            {
+                if (person == this)
+                    continue;
+                currentDistance = newLocation.GetDistance(person.exactLocation);
+                if (minDistance == -1)
+                    minDistance = currentDistance;
+            }
+
+            if (minDistance > 1.5 || minDistance == -1)
+                return true;
+            return false;
         }
 
         /// <summary>

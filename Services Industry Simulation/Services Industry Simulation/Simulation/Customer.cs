@@ -55,12 +55,20 @@ namespace Services_Industry_Simulation.Simulation
         {
             if (goal == GoalType.Table)
             {
-
+                this.goalRoute = null;
+                this.exactLocation = seat.location;
+            }
+            if (goal == GoalType.Toilet)
+            {
+                this.goalRoute = null;
+                
             }
             else if(goal == GoalType.Toilet)
             {
                 model.toiletManager.EnqueueCustomer(this);
             }
+
+            model.RemoveFromWalking(this);
         }
 
         public override void Update(Model model)

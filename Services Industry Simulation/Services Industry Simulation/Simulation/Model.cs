@@ -18,7 +18,7 @@ namespace Services_Industry_Simulation.Simulation
         int time;
         public int Time { get { return time; } }
 
-        HashSet<Person> peopleWalking;
+        public HashSet<Person> peopleWalking;
 
 
         public Model(Table[] tables, Route[] routes, int maxStaff, int maxSeating, int maxToilet)
