@@ -11,6 +11,8 @@ namespace Services_Industry_Simulation.Simulation
         public readonly Route staffRouteEnd;
         public readonly Route toiletRouteEntry;
         public readonly Route toiletRouteExit;
+        public readonly Route registerRoute;
+        public readonly float registerLocation;
         public StaffManager staffManager;
         public ToiletManager toiletManager;
         MinHeap events;
@@ -21,7 +23,7 @@ namespace Services_Industry_Simulation.Simulation
         public HashSet<Person> peopleWalking;
 
 
-        public Model(Table[] tables, Route[] routes, int maxStaff, int maxSeating, int maxToilet)
+        public Model(Table[] tables, Route[] routes,int closestJ, int maxStaff, int maxSeating, int maxToilet)
         {
             time = 0;
             this.maxSeating = maxSeating;
@@ -36,7 +38,7 @@ namespace Services_Industry_Simulation.Simulation
             staffManager = new StaffManager(maxStaff);
             toiletManager = new ToiletManager(maxToilet);
             peopleWalking = new HashSet<Person>();
-
+            
 
             for (int i = 0; i < routes.Length; i++)
             {
@@ -45,6 +47,11 @@ namespace Services_Industry_Simulation.Simulation
                 else if (r.routeType == Route.RouteType.ToiletRoute && r.exits.Length > 0) toiletRouteExit = r;
                 else if (r.routeType == Route.RouteType.KitchenRoute && r.exits.Length == 0) staffRouteEnd = r;
                 else if (r.routeType == Route.RouteType.KitchenRoute && r.exits.Length > 0 ) staffRouteStart = r;
+                else if(r.routeType == Route.RouteType.RegisterRoute)
+                {
+                    registerRoute = r;
+                    registerLocation = closestJ;
+                }
             }
 
             if (staffRouteStart == null || staffRouteEnd == null || toiletRouteEntry == null || toiletRouteExit == null) throw new System.Exception("Not all necesary routes are available.");

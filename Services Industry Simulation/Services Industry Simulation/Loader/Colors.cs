@@ -29,6 +29,7 @@ namespace Services_Industry_Simulation
             seat = Color.FromArgb(63, 72, 204);
             table = Color.FromArgb(185, 122, 86);
             groupConnector = Color.FromArgb(140, 255, 251);
+            register = Color.FromArgb(255, 174, 200);
         }
 
         static private Color entryRoute;
@@ -69,6 +70,9 @@ namespace Services_Industry_Simulation
 
         static private Color groupConnector;
         public static Color GroupConnector { get { return groupConnector; } }
+
+        static private Color register;
+        public static Color Register { get { return register; } }
 
     }
 }

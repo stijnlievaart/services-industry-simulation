@@ -6,7 +6,7 @@ namespace Services_Industry_Simulation.Loader
 {
     static class ModelLoader
     {
-        public static Model GetModel(Image image)
+        public static (Bitmap,Model) GetModel(Image image)
         {
             char[,] debug = new char[20, 40];
             for (int i = 0; i < 20; i++)
@@ -21,6 +21,9 @@ namespace Services_Industry_Simulation.Loader
 
             // Tilemap for all tiles that contain any kind of table/ seating.
             Dictionary<(int, int), TableConstructor.TableTile> tableTiles = new Dictionary<(int, int), TableConstructor.TableTile>();
+
+            FPoint register = new FPoint(0,0);
+            bool registerFound = false;
 
             Bitmap bmp = (Bitmap)image;
             (int width, int height) = (bmp.Width, bmp.Height);
@@ -80,14 +83,44 @@ namespace Services_Industry_Simulation.Loader
                     {
 
                     }
+                    else if(Colors.Equal(color,Colors.Register))
+                    {
+                        register = new FPoint(i * Config.Scale, j * Config.Scale);
+                        registerFound = true;
+                        routeTiles.Add((i, j), RouteConstructor.RouteTile.Pay);
+                    }
                     else Console.WriteLine("Unknown Color: " + color.ToString());
                 }
 
             }
 
+            if (!registerFound) throw new Exception("No register on route");
+
             // Generate the routes
             Route[] routes = RouteConstructor.GenerateRoutes(routeTiles, debug);
             Table[] tables = TableConstructor.GenerateTables(tableTiles, debug,routes);
+
+            Route closestRoute = null;
+
+            int closestJ = 0;
+            float distance = float.MaxValue;
+            for (int i = 0; i < routes.Length; i++)
+            {
+                Route route = routes[i];
+                for (int j = 0; j < route.via.Length; j++)
+                {
+                    FPoint p = route.via[j];
+                    (float x, float y) = (p.x - register.x, p.y - register.y);
+                    float newDistance = (float)Math.Sqrt(x * x + y * y);
+                    if (newDistance < distance)
+                    {
+                        distance = newDistance;
+                        closestJ = j;
+                        closestRoute = route;
+                    }
+                }
+            }
+            if (closestRoute == null) throw new Exception("No route found that has the closest point.");
 
             // Print Debug
             for (int j = 0; j < debug.GetLength(1); j++)
@@ -98,7 +131,7 @@ namespace Services_Industry_Simulation.Loader
                 }
                 Console.WriteLine();
             }
-            return new Model(tables, routes, Config.MaxStaff,Config.MaxSeating,Config.MaxInToilet);
+            return (bmp,new Model(tables, routes,closestJ, Config.MaxStaff,Config.MaxSeating,Config.MaxInToilet));
         }
 
     }

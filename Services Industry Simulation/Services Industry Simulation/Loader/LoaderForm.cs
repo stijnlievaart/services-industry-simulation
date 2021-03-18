@@ -28,7 +28,7 @@ namespace Services_Industry_Simulation.Loader
                 Image image = Image.FromFile(filePath);
 
                 // Have the loader create the model.    
-                modelDestination.model = ModelLoader.GetModel(image);
+                (modelDestination.bmp,modelDestination.model) = ModelLoader.GetModel(image);
                 this.Close();
             }
             else MessageBox.Show("File Loading Failed.");

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace Services_Industry_Simulation
@@ -6,6 +7,7 @@ namespace Services_Industry_Simulation
     public partial class Form1 : Form
     {
         Simulation.Model loadedModel = null;
+        Bitmap background;
         public Form1()
         {
             InitializeComponent();
@@ -23,6 +25,7 @@ namespace Services_Industry_Simulation
 
             // Load Model from wrapper
             loadedModel = modelWrapper.model;
+            background = modelWrapper.bmp;
         }
     }
 }
