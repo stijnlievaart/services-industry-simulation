@@ -67,7 +67,7 @@ namespace Services_Industry_Simulation.Simulation
         /// Given a list of routes, picks the goal route if available, otherwise chooses the Main route
         /// </summary>
         /// <param name="options"></param>
-        public void Pathfind(List<Route> options)
+        public void Pathfind(Route[] options)
         {
             Route mainRoute = null;
             
@@ -107,6 +107,11 @@ namespace Services_Industry_Simulation.Simulation
             return 1f;
         }
 
+        /// <summary>
+        /// Given a Second person, returns the odds that the person its called on, gets infected
+        /// </summary>
+        /// <param name="secondPerson"></param>
+        /// <returns></returns>
         public float GetOddsOfInfection(Person secondPerson)
         {
             float angleFactor = GetAngleFactor(secondPerson);
@@ -118,6 +123,11 @@ namespace Services_Industry_Simulation.Simulation
                 return 0;
             }
             return 1;
+        }
+
+        
+        public void DoInfection()
+        {
 
         }
 
