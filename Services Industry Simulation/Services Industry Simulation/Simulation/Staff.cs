@@ -19,7 +19,7 @@ namespace Services_Industry_Simulation.Simulation
 
         public void DrawStaff(Graphics gr)
         {
-            gr.FillEllipse(Brushes.DarkOliveGreen, exactLocation.x * 20, exactLocation.y * 20, 20, 20);
+            gr.FillEllipse(Brushes.DarkOliveGreen, exactLocation.x * 40, exactLocation.y * 40, 20, 20);
         }
 
         public override void Arrival(GoalType goal,Model model)
@@ -29,7 +29,7 @@ namespace Services_Industry_Simulation.Simulation
                 if(currentTask.GetType()== typeof(PayEvent))
                     table.activeGroup.Leave(model);
                 this.goalRoute = model.staffRouteEnd;
-                this.goalRouteLocation = model.staffRouteEnd.via.Length;
+                this.goalRouteLocation = model.staffRouteEnd.via.Length*model.Scale;
             }
             else if(goal==GoalType.Kitchen)
             {

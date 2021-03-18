@@ -44,7 +44,7 @@ namespace Services_Industry_Simulation.Simulation
             {
                 return;
             }
-            if (onCorrectRoute)
+            if (goalRoute==onRoute)
             {
                 if (onRouteLocation + speed >= goalRouteLocation)
                 {
@@ -55,21 +55,24 @@ namespace Services_Industry_Simulation.Simulation
                 else
                 {
                     onRouteLocation += speed;
+                    exactLocation = onRoute.via[(int)(onRouteLocation / model.Scale)];
                 }
             }
             else if (onRouteLocation + speed >= onRoute.via.Length*model.Scale)  // Check whether moving puts person of the current route
             {
                 Pathfind(onRoute.exits);
-                onRouteLocation = 0;   
+                onRouteLocation = 0;
+                exactLocation = onRoute.via[(int)(onRouteLocation / model.Scale)];
             }
             else
             {
                 onRouteLocation += speed;
+                exactLocation = onRoute.via[(int)(onRouteLocation / model.Scale)];
             }
             
-            exactLocation = onRoute.via[(int)(onRouteLocation/model.Scale)];
+            
 
-            if (CheckIfSafe(model, exactLocation))
+            if (true||CheckIfSafe(model, exactLocation))
             {
                 oldLocation = exactLocation;
             }

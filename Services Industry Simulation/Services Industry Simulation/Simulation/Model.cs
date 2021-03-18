@@ -147,7 +147,7 @@ namespace Services_Industry_Simulation.Simulation
                 AddEvent(new TaskEvent(Time + 180, t));
                 for (int i = 0; i < customers.Count; i++)
                 {
-                    AddEvent(new GoToToiletEvent(Time + 100+ ((100 * i) % 3600), customers[i]));
+                    AddEvent(new GoToToiletEvent(Time + 100+ ((600 * i) % 3600), customers[i]));
                 }
                 AddEvent(new TaskEvent(Time + 780, t));
 

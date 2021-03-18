@@ -19,6 +19,7 @@ namespace Services_Industry_Simulation.Simulation
             {
                 Staff s = new Staff(virus);
                 staff[i] = s;
+                availableStaff.Enqueue(s);
                 s.exactLocation = model.staffRouteStart.start;
             }
         }
@@ -43,6 +44,11 @@ namespace Services_Industry_Simulation.Simulation
                 TaskEvent task = tasksToDo.Dequeue();
                 s.currentTask = task;
                 s.DoTask(task.table,model);
+            }
+
+            for (int i = 0; i < staff.Length; i++)
+            {
+                staff[i].Update(model);
             }
         }
     }

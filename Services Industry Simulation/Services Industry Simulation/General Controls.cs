@@ -1,5 +1,6 @@
 ﻿using Services_Industry_Simulation.Simulation;
 using System;
+using System.Diagnostics;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -81,8 +82,16 @@ namespace Services_Industry_Simulation
 
         private void button1_Click(object sender, EventArgs e)
         {
-            loadedModel.Update();
+            Stopwatch sw = new Stopwatch();
+            sw.Start();
+            for (int i = 0; i < 1; i++)
+            {
+                loadedModel.Update();
+                //Application.DoEvents();
+            }
+            sw.Stop();
             this.Invalidate();
+            Console.WriteLine(sw.ElapsedMilliseconds + "ms per frame.");
         }
 
         private void pictureBox1_Click(object sender, EventArgs e)
@@ -92,17 +101,31 @@ namespace Services_Industry_Simulation
 
         private void button2_Click(object sender, EventArgs e)
         {
+            Stopwatch sw = new Stopwatch();
+            sw.Start();
             for (int i = 0; i < 10; i++)
             {
                 loadedModel.Update();
+                //this.Invalidate();
+                //Application.DoEvents();
             }
+            sw.Stop();
+            this.Invalidate();
+            Console.WriteLine(sw.ElapsedMilliseconds / 10f + "ms per frame.");
         }
         private void button3_Click_1(object sender, EventArgs e)
         {
-            for (int i = 0; i < 1000; i++)
+            Stopwatch sw = new Stopwatch();
+            sw.Start();
+            for (int i = 0; i < 10000; i++)
             {
                 loadedModel.Update();
+                //this.Invalidate();
+                //Application.DoEvents();
             }
+            sw.Stop();
+            this.Invalidate();
+            Console.WriteLine(sw.ElapsedMilliseconds/10000f +"ms per frame.");
         }
     }
 }

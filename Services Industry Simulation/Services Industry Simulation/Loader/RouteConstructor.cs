@@ -56,9 +56,10 @@ namespace Services_Industry_Simulation.Loader
 
         public Route GenerateRoute()
         {
-            FPoint[] points = new FPoint[via.Count-1];
+            FPoint[] points = new FPoint[via.Count];
             List<IPoint> bufferFront = new List<IPoint>();
             points[0] = start.RealWorld;
+            points[points.Length - 1] = end.RealWorld;
             for (int i = 0; i < via.Count; i++)
             {
                 IPoint p = via[i];
