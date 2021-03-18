@@ -12,15 +12,16 @@ namespace Services_Industry_Simulation.Simulation
         public readonly Route toiletRouteEntry;
         public readonly Route toiletRouteExit;
         public StaffManager staffManager;
+        public ToiletManager toiletManager;
         MinHeap events;
         Queue<Table> emptyTables;
         int time;
-
+        public int Time { get { return time; } }
 
         HashSet<Person> peopleWalking;
 
 
-        public Model(Table[] tables, Route[] routes, int maxStaff, int maxSeating)
+        public Model(Table[] tables, Route[] routes, int maxStaff, int maxSeating, int maxToilet)
         {
             time = 0;
             this.maxSeating = maxSeating;
@@ -33,6 +34,7 @@ namespace Services_Industry_Simulation.Simulation
             this.routes = routes;
             events = new MinHeap();
             staffManager = new StaffManager(maxStaff);
+            toiletManager = new ToiletManager(maxToilet);
             peopleWalking = new HashSet<Person>();
 
 
@@ -55,13 +57,34 @@ namespace Services_Industry_Simulation.Simulation
                 tables[i].Update(this);
             }
 
+            toiletManager.Update(this);
+
             staffManager.Update(this);
 
             GenerateNewGroups();
 
             time++;
+
+            if (!events.IsEmpty())
+            {
+                while(!events.IsEmpty())
+                { 
+                    Event e = events.Peek();
+                    if (e.Position > Time) break;
+                    else
+                    {
+                        e.Process(this);
+                        events.Pop();
+                    }
+                }
+            }
         }
 
+
+        public void AddEvent(Event e)
+        {
+            events.Add(e);
+        }
 
         public void GenerateNewGroups()
         {

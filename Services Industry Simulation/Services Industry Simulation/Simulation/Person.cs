@@ -122,6 +122,7 @@ namespace Services_Industry_Simulation.Simulation
 
         public abstract void Update(Model model);
 
+        public abstract void StartRouteTo(Model model, Route goalRoute, float goalRouteDestination);
 
     }
 }

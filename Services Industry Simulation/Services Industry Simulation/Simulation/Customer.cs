@@ -57,6 +57,10 @@ namespace Services_Industry_Simulation.Simulation
             {
 
             }
+            else if(goal == GoalType.Toilet)
+            {
+                model.toiletManager.EnqueueCustomer(this);
+            }
         }
 
         public override void Update(Model model)
@@ -86,6 +90,15 @@ namespace Services_Industry_Simulation.Simulation
                 Staff p = model.staffManager.staff[j];
                 // this.DoInfection(p);
             }
+        }
+
+        public override void StartRouteTo(Model model, Route goalRoute, float goalRouteDestination)
+        {
+            this.onRoute = group.table.onRoute;
+            this.onRouteLocation = group.table.onRouteLocation;
+            this.goalRoute = goalRoute;
+            this.goalRouteLocation = goalRouteDestination;
+            // Add user to model'S LIST OF MOVERS
         }
     }
 
