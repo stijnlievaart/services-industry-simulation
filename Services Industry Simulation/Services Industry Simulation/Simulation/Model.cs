@@ -13,6 +13,8 @@ namespace Services_Industry_Simulation.Simulation
         public readonly Route toiletRouteExit;
         public readonly Route registerRoute;
         public readonly float registerLocation;
+        public readonly Route exitRoute;
+        public readonly Route entryRoute;
         public StaffManager staffManager;
         public ToiletManager toiletManager;
         MinHeap events;
@@ -39,6 +41,8 @@ namespace Services_Industry_Simulation.Simulation
                     registerRoute = r;
                     registerLocation = closestJ;
                 }
+                else if (r.routeType == Route.RouteType.ExitRoute && r.exits.Length == 0) exitRoute = r;
+                else if (r.routeType == Route.RouteType.ExitRoute && r.exits.Length > 0) entryRoute = r;
             }
 
             if (staffRouteStart == null || staffRouteEnd == null || toiletRouteEntry == null || toiletRouteExit == null) throw new System.Exception("Not all necesary routes are available.");

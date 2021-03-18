@@ -19,7 +19,7 @@ namespace Services_Industry_Simulation.Loader
             switch(t)
             {
                 case Type.Entry:
-                    return Route.RouteType.MainRoute;
+                    return Route.RouteType.ExitRoute;
                 case Type.Exit:
                     return Route.RouteType.ExitRoute;
                 case Type.Normal:
