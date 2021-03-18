@@ -6,20 +6,20 @@ namespace Services_Industry_Simulation.Simulation
     {
         public Staff[] staff;
         Virus virus;
-        Queue<Table> tasksToDo;
-
+        Queue<TaskEvent> tasksToDo;
         Queue<Staff> availableStaff;
-        public StaffManager(int maxStaff)
+        public StaffManager(int maxStaff,Model model)
         {
             virus = new Virus();
-            tasksToDo = new Queue<Table>();
+            tasksToDo = new Queue<TaskEvent>();
             availableStaff = new Queue<Staff>();
-            
             
             staff = new Staff[maxStaff];
             for (int i = 0; i < maxStaff; i++)
             {
-                staff[i] = new Staff(virus);
+                Staff s = new Staff(virus);
+                staff[i] = s;
+                s.exactLocation = model.staffRouteStart.start;
             }
         }
 
@@ -32,12 +32,18 @@ namespace Services_Industry_Simulation.Simulation
 
         public void GiveTask(TaskEvent task)
         {
-            tasksToDo.Enqueue(task.table);
+            tasksToDo.Enqueue(task);
         }
 
         public void Update(Model model)
         {
-            while (availableStaff.Count > 0 && tasksToDo.Count > 0) availableStaff.Dequeue().DoTask(tasksToDo.Dequeue());
+            while (availableStaff.Count > 0 && tasksToDo.Count > 0)
+            {
+                Staff s = availableStaff.Dequeue();
+                TaskEvent task = tasksToDo.Dequeue();
+                s.currentTask = task;
+                s.DoTask(task.table,model);
+            }
         }
     }
 }

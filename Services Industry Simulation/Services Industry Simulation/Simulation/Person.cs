@@ -142,6 +142,15 @@ namespace Services_Industry_Simulation.Simulation
             return 1f;
         }
 
+        public void StartRouteTo(Route originRoute, float originLocation, Route goalRoute, float goalRouteDestination,Model model)
+        {
+            this.onRoute = originRoute;
+            this.onRouteLocation = originLocation;
+            this.goalRoute = goalRoute;
+            this.goalRouteLocation = goalRouteDestination;
+            model.peopleWalking.Add(this);
+        }
+
 
         /// <summary>
         /// Function to be called upon arrival to destination
@@ -151,7 +160,6 @@ namespace Services_Industry_Simulation.Simulation
 
         public abstract void Update(Model model);
 
-        public abstract void StartRouteTo(Model model, Route goalRoute, float goalRouteDestination);
 
     }
 }

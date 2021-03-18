@@ -16,15 +16,32 @@ namespace Services_Industry_Simulation.Simulation
         public StaffManager staffManager;
         public ToiletManager toiletManager;
         MinHeap events;
-        Queue<Table> emptyTables;
+        public Queue<Table> emptyTables;
         int time;
+        public readonly bool payAtRegister;
         public int Time { get { return time; } }
 
         public HashSet<Person> peopleWalking;
 
 
-        public Model(Table[] tables, Route[] routes,int closestJ, int maxStaff, int maxSeating, int maxToilet)
+        public Model(Table[] tables, Route[] routes,int closestJ, int maxStaff, int maxSeating, int maxToilet, bool payAtRegister)
         {
+
+            for (int i = 0; i < routes.Length; i++)
+            {
+                Route r = routes[i];
+                if (r.routeType == Route.RouteType.ToiletRoute && r.exits.Length == 0) toiletRouteEntry = r;
+                else if (r.routeType == Route.RouteType.ToiletRoute && r.exits.Length > 0) toiletRouteExit = r;
+                else if (r.routeType == Route.RouteType.KitchenRoute && r.exits.Length == 0) staffRouteEnd = r;
+                else if (r.routeType == Route.RouteType.KitchenRoute && r.exits.Length > 0) staffRouteStart = r;
+                else if (r.routeType == Route.RouteType.RegisterRoute)
+                {
+                    registerRoute = r;
+                    registerLocation = closestJ;
+                }
+            }
+
+            if (staffRouteStart == null || staffRouteEnd == null || toiletRouteEntry == null || toiletRouteExit == null) throw new System.Exception("Not all necesary routes are available.");
             time = 0;
             this.maxSeating = maxSeating;
             this.tables = tables;
@@ -35,26 +52,12 @@ namespace Services_Industry_Simulation.Simulation
             }
             this.routes = routes;
             events = new MinHeap();
-            staffManager = new StaffManager(maxStaff);
-            toiletManager = new ToiletManager(maxToilet);
+            staffManager = new StaffManager(maxStaff,this);
+            toiletManager = new ToiletManager(maxToilet,this);
             peopleWalking = new HashSet<Person>();
+            this.payAtRegister = payAtRegister;
             
 
-            for (int i = 0; i < routes.Length; i++)
-            {
-                Route r = routes[i];
-                if (r.routeType == Route.RouteType.ToiletRoute && r.exits.Length == 0) toiletRouteEntry = r;
-                else if (r.routeType == Route.RouteType.ToiletRoute && r.exits.Length > 0) toiletRouteExit = r;
-                else if (r.routeType == Route.RouteType.KitchenRoute && r.exits.Length == 0) staffRouteEnd = r;
-                else if (r.routeType == Route.RouteType.KitchenRoute && r.exits.Length > 0 ) staffRouteStart = r;
-                else if(r.routeType == Route.RouteType.RegisterRoute)
-                {
-                    registerRoute = r;
-                    registerLocation = closestJ;
-                }
-            }
-
-            if (staffRouteStart == null || staffRouteEnd == null || toiletRouteEntry == null || toiletRouteExit == null) throw new System.Exception("Not all necesary routes are available.");
         }
 
         public void Update()
@@ -120,6 +123,8 @@ namespace Services_Industry_Simulation.Simulation
                     AddEvent(new GoToToiletEvent(Time + ((100 * i) % 3600), customers[i]));
                 }
                 AddEvent(new TaskEvent(Time + 780, t));
+
+                AddEvent(new PayEvent(Time + 3600,customers[0]));
             }
         }
 
@@ -128,7 +133,8 @@ namespace Services_Industry_Simulation.Simulation
             int sum = 0;
             for (int i = 0; i < tables.Length; i++)
             {
-                sum += tables[i].activeGroup.customers.Count;
+                Table t = tables[i];
+                if(t.activeGroup!=null)sum += t.activeGroup.customers.Count;
             }
             return sum;
         }

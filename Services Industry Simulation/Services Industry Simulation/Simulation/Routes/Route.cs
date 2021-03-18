@@ -16,7 +16,7 @@ namespace Services_Industry_Simulation.Simulation
 
         public RouteType routeType;
 
-        private FPoint start;
+        public  FPoint start;
         private FPoint end;
         public FPoint[] via;
         public Route[] exits;

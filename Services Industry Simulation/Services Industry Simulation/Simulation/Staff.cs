@@ -2,6 +2,9 @@
 {
     public class Staff : Person
     {
+        public enum VisitReason { Pay, Food}
+        public Table table;
+        public TaskEvent currentTask;
         public Staff(Virus virus) : base(virus)
         {
 
@@ -16,6 +19,8 @@
         {
             if (goal == GoalType.Table)
             {
+                if(currentTask.GetType()== typeof(PayEvent))
+                    table.activeGroup.Leave(model);
                 this.goalRoute = model.staffRouteEnd;
                 this.goalRouteLocation = model.staffRouteEnd.via.Length;
             }
@@ -29,15 +34,10 @@
             }
         }
 
-        public void DoTask(Table table)
+        public void DoTask(Table table,Model model)
         {
-            this.goalRoute = table.onRoute;
-            this.goalRouteLocation = table.onRouteLocation;
+            StartRouteTo(model.staffRouteStart, 0, table.onRoute, table.onRouteLocation, model);
         }
 
-        public override void StartRouteTo(Model model, Route goalRoute, float goalRouteDestination)
-        {
-            throw new System.NotImplementedException();
-        }
     }
 }

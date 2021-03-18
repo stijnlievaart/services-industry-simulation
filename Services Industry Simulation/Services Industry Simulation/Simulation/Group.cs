@@ -38,5 +38,12 @@ namespace Services_Industry_Simulation.Simulation
             }
         }
 
+        public void Leave(Model model)
+        {
+            model.emptyTables.Enqueue(table);
+            table.pastGroups.Add(this);
+            table.activeGroup = null;
+        }
+
     }
 }

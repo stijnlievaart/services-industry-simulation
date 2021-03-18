@@ -5,7 +5,7 @@ namespace Services_Industry_Simulation.Simulation
 {
     public class Customer : Person
     {
-        Group group;
+        public Group group;
         public Dictionary<Virus, float> infections;
         public Seat seat;
 
@@ -95,7 +95,7 @@ namespace Services_Industry_Simulation.Simulation
             }
         }
 
-        public override void StartRouteTo(Model model, Route goalRoute, float goalRouteDestination)
+        public void StartRouteTo(Model model, Route goalRoute, float goalRouteDestination)
         {
             this.onRoute = group.table.onRoute;
             this.onRouteLocation = group.table.onRouteLocation;
@@ -103,6 +103,8 @@ namespace Services_Industry_Simulation.Simulation
             this.goalRouteLocation = goalRouteDestination;
             model.peopleWalking.Add(this);
         }
+
+        
     }
 
 

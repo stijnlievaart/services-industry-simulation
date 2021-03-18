@@ -8,5 +8,6 @@
         public const int MaxSeating = 100;
         public const int MaxInToilet = 4;
         public const int SecondsInToilet = 300;
+        public const bool PayAtRegister = false;
     }
 }

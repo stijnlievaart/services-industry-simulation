@@ -51,7 +51,7 @@
 
         public override void Process(Model model)
         {
-            model.toiletManager.ReleaseCustomer();
+            model.toiletManager.ReleaseCustomer(model);
         }
     }
 
@@ -66,6 +66,21 @@
         public override void Process(Model model)
         {
             customer.StartRouteTo(model, model.toiletRouteEntry, model.toiletRouteEntry.via.Length);
+        }
+    }
+
+    public class PayEvent : TaskEvent
+    {
+        Customer customer;
+        public PayEvent(int position, Customer customer) : base(position,customer.group.table)
+        {
+            this.customer = customer;
+        }
+
+        public override void Process(Model model)
+        {
+            if (model.payAtRegister) customer.StartRouteTo(model, model.registerRoute, model.registerLocation);
+            else model.staffManager.GiveTask(new TaskEvent(0,customer.group.table));
         }
     }
 

@@ -13,7 +13,7 @@ namespace Services_Industry_Simulation.Simulation
 
         Queue<Customer> inToilet;
         Queue<Customer> queueForToilet;
-        public ToiletManager(int maxOccupation)
+        public ToiletManager(int maxOccupation,Model model)
         {
             this.max = maxOccupation;
             inToilet = new Queue<Customer>();
@@ -29,9 +29,13 @@ namespace Services_Industry_Simulation.Simulation
             model.AddEvent(new ToiletFinishedEvent(model.Time + Config.SecondsInToilet));
         }
 
-        public void ReleaseCustomer()
+        public void ReleaseCustomer(Model model)
         {
-            if (inToilet.Count > 0) inToilet.Dequeue();
+            if (inToilet.Count > 0)
+            {
+                Customer c = inToilet.Dequeue();
+                c.StartRouteTo(model.toiletRouteExit, 0, c.group.table.onRoute, c.group.table.onRouteLocation,model);
+            }
             else throw new Exception("Toilet tried removing customer but was already empty.");
         }
 
