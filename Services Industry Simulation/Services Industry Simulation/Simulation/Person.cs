@@ -37,6 +37,10 @@ namespace Services_Industry_Simulation.Simulation
         /// </summary>
         public void Move()
         {
+            if (goalRoute == null)
+            {
+                return;
+            }
             if (onCorrectRoute)
             {
                 if (onRouteLocation + speed >= goalRouteLocation)
@@ -47,12 +51,14 @@ namespace Services_Industry_Simulation.Simulation
                 else
                 {
                     onRouteLocation += speed;
+                    return;
                 }
             }
             else if (onRouteLocation + speed >= onRoute.via.Length)  // Check whether moving puts person of the current route
             {
                 Pathfind(onRoute.exits);
                 onRouteLocation = 0;
+                return;
                 
             }
             else
@@ -107,29 +113,6 @@ namespace Services_Industry_Simulation.Simulation
             return 1f;
         }
 
-        /// <summary>
-        /// Given a Second person, returns the odds that the person its called on, gets infected
-        /// </summary>
-        /// <param name="secondPerson"></param>
-        /// <returns></returns>
-        public float GetOddsOfInfection(Person secondPerson)
-        {
-            float angleFactor = GetAngleFactor(secondPerson);
-
-            float distance = exactLocation.GetDistance(secondPerson.exactLocation);
-
-            if (distance > 3)
-            {
-                return 0;
-            }
-            return 1;
-        }
-
-        
-        public void DoInfection()
-        {
-
-        }
 
         /// <summary>
         /// Function to be called upon arrival to destination

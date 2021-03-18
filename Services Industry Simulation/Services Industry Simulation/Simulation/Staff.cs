@@ -6,5 +6,10 @@
         {
 
         }
+
+        public override void Arrival(GoalType goal)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

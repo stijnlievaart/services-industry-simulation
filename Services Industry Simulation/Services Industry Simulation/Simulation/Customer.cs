@@ -1,13 +1,60 @@
-﻿namespace Services_Industry_Simulation.Simulation
+﻿using System;
+using System.Collections.Generic;
+
+namespace Services_Industry_Simulation.Simulation
 {
     public class Customer : Person
     {
         Group group;
+        Dictionary<Virus, float> infections;
+
         public Customer(Group group,Virus virus) : base(virus)
         {
             this.group = group;
             //this.goalRoute = group.table; Todo: add the location of table and start location to pathfinder.
             this.virus = virus;
+            infections = new Dictionary<Virus, float>();
+        }
+
+        /// <summary>
+        /// Given a Second person, returns the odds that the person its called on, gets infected
+        /// </summary>
+        /// <param name="secondPerson"></param>
+        /// <returns></returns>
+        public float GetOddsOfInfection(Person secondPerson)
+        {
+            float angleFactor = GetAngleFactor(secondPerson);
+
+            float distance = exactLocation.GetDistance(secondPerson.exactLocation);
+
+            if (distance > 3)
+            {
+                return 0;
+            }
+            return (float)(1 /Math.Abs(Math.Pow(distance+1,3)));
+        }
+
+
+        public void DoInfection(Person secondPerson)
+        {
+            float infectionOdds = GetOddsOfInfection(secondPerson);
+
+            Virus virusNew = secondPerson.virus;
+            if (infections.ContainsKey(virusNew))
+            {
+                infections[virusNew] += infectionOdds;
+            }
+            else
+            {
+                infections.Add(virusNew, infectionOdds);
+            }
+        }
+
+        public override void Arrival(GoalType goal)
+        {
+            
         }
     }
+
+
 }
