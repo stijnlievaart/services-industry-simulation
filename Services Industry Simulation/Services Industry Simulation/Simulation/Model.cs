@@ -9,6 +9,8 @@ namespace Services_Industry_Simulation.Simulation
         Route[] routes;
         public readonly Route staffRouteStart;
         public readonly Route staffRouteEnd;
+        public readonly Route toiletRouteEntry;
+        public readonly Route toiletRouteExit;
         public StaffManager staffManager;
         MinHeap events;
         Queue<Table> emptyTables;
@@ -32,6 +34,18 @@ namespace Services_Industry_Simulation.Simulation
             events = new MinHeap();
             staffManager = new StaffManager(maxStaff);
             peopleWalking = new HashSet<Person>();
+
+
+            for (int i = 0; i < routes.Length; i++)
+            {
+                Route r = routes[i];
+                if (r.routeType == Route.RouteType.ToiletRoute && r.exits.Length == 0) toiletRouteEntry = r;
+                else if (r.routeType == Route.RouteType.ToiletRoute && r.exits.Length > 0) toiletRouteExit = r;
+                else if (r.routeType == Route.RouteType.RegisterRoute && r.exits.Length == 0) staffRouteEnd = r;
+                else if (r.routeType == Route.RouteType.RegisterRoute && r.exits.Length > 0 ) staffRouteStart = r;
+            }
+
+            if (staffRouteStart == null || staffRouteEnd == null || toiletRouteEntry == null || toiletRouteExit == null) throw new System.Exception("Not all necesary routes are available.");
         }
 
         public void Update()
