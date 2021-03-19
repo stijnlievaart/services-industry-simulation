@@ -56,6 +56,7 @@ namespace Services_Industry_Simulation.Simulation
             {
                 infections.Add(virusNew, infectionOdds);
             }
+            if (infections[virusNew] > 100) infections[virusNew] = 100;
         }
 
         public override void Arrival(GoalType goal,Model model)

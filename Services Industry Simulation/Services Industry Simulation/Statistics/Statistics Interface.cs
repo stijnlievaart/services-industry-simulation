@@ -78,7 +78,7 @@ namespace Services_Industry_Simulation.Statistics
             float SD = (float)Math.Sqrt(variance);
             Console.WriteLine("Mean: " + mean + "\nSD: "+SD);
 
-            Controls.Add(CreateDistributionGraph(personInfectedByVirusesTotal.Values.ToList<float>()));
+            //Controls.Add(CreateDistributionGraph(personInfectedByVirusesTotal.Values.ToList<float>()));
         }
 
         private Chart CreateDistributionGraph(List<float> points)
@@ -86,7 +86,7 @@ namespace Services_Industry_Simulation.Statistics
             points.Sort();
             float min = 0;
             float max = points[points.Count-1];
-            int amountOfDots = 100;
+            int amountOfDots = 200;
             Dictionary<int, int> distribution = new Dictionary<int, int>();
 
             for (int i = 0; i < points.Count; i++)
@@ -103,7 +103,7 @@ namespace Services_Industry_Simulation.Statistics
                 Color = System.Drawing.Color.Green,
                 IsVisibleInLegend = true,
                 IsXValueIndexed = true,
-                ChartType = SeriesChartType.Line
+                ChartType = SeriesChartType.Point
             };
 
             
@@ -117,7 +117,9 @@ namespace Services_Industry_Simulation.Statistics
             ChartArea ch = new ChartArea();
             ch.Name = "ChartArea1";
             chart.ChartAreas.Add(ch);
-            ch.AxisX.IsLogarithmic = false;
+            //ch.AxisX.IsLogarithmic = false;
+            //ch.AxisX.Minimum = 0;
+            //ch.AxisX.Maximum = max;
             chart.Dock = System.Windows.Forms.DockStyle.Fill;
             Legend lgd = new Legend("Legend1");
             chart.Legends.Add(lgd);

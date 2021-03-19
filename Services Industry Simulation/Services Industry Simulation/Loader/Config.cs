@@ -9,6 +9,6 @@
         public const int MaxInToilet = 4;
         public const int SecondsInToilet = 300;
         public const bool PayAtRegister = false;
-        public const int TimeLimit = 3600*8;
+        public const int TimeLimit = 3600;
     }
 }

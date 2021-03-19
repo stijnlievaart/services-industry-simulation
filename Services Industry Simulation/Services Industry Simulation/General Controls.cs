@@ -131,5 +131,20 @@ namespace Services_Industry_Simulation
             Form statistics = new Statistics_Interface(new List<Model>() {loadedModel });
             statistics.Show();
         }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            Stopwatch sw = new Stopwatch();
+            sw.Start();
+            for (int i = 0; i < 1; i++)
+            {
+                loadedModel.Update();
+                //this.Invalidate();
+                //Application.DoEvents();
+            }
+            sw.Stop();
+            this.Invalidate();
+            Console.WriteLine(sw.ElapsedMilliseconds / 10000f + "ms per frame.");
+        }
     }
 }

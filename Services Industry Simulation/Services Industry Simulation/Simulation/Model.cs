@@ -31,7 +31,11 @@ namespace Services_Industry_Simulation.Simulation
 
         public void RunModel()
         {
-            while (time < stopTime) Update();
+            while (time < stopTime)
+            {
+                Update();
+                if (time % 1000 == 0) System.Console.WriteLine(time/(float)stopTime*100);
+            }
             for (int i = 0; i < tables.Length; i++)
             {
                 Table t = tables[i];
