@@ -103,7 +103,7 @@ namespace Services_Industry_Simulation
         {
             Stopwatch sw = new Stopwatch();
             sw.Start();
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < 100; i++)
             {
                 loadedModel.Update();
                 //this.Invalidate();
@@ -117,7 +117,7 @@ namespace Services_Industry_Simulation
         {
             Stopwatch sw = new Stopwatch();
             sw.Start();
-            for (int i = 0; i < 10000; i++)
+            for (int i = 0; i < 1000; i++)
             {
                 loadedModel.Update();
                 //this.Invalidate();

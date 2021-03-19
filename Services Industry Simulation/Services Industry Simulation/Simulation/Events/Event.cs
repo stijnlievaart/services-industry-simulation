@@ -88,7 +88,7 @@
         public override void Process(Model model)
         {
             if (model.payAtRegister) customer.StartRouteTo(model, model.registerRoute, model.registerLocation);
-            else model.staffManager.GiveTask(new TaskEvent(0,customer.group.table));
+            else model.staffManager.GiveTask(this);
         }
     }
 

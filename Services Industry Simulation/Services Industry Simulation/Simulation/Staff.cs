@@ -5,7 +5,6 @@ namespace Services_Industry_Simulation.Simulation
     public class Staff : Person
     {
         public enum VisitReason { Pay, Food}
-        public Table table;
         public TaskEvent currentTask;
         public Staff(Virus virus) : base(virus)
         {
@@ -27,7 +26,7 @@ namespace Services_Industry_Simulation.Simulation
             if (goal == GoalType.Table)
             {
                 if(currentTask.GetType()== typeof(PayEvent))
-                    table.activeGroup.Leave(model);
+                    currentTask.table.activeGroup.Leave(model);
                 this.goalRoute = model.staffRouteEnd;
                 this.goalRouteLocation = model.staffRouteEnd.via.Length*model.Scale;
             }
