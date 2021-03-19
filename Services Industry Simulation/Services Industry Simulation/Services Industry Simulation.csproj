@@ -74,6 +74,7 @@
     <Compile Include="Loader\TableConstructor.cs" />
     <Compile Include="Simulation\Events\Event.cs" />
     <Compile Include="Simulation\FPoint.cs" />
+    <Compile Include="Simulation\ImprovedMath.cs" />
     <Compile Include="Simulation\Seat.cs" />
     <Compile Include="Simulation\Table.cs" />
     <Compile Include="Simulation\Staff.cs" />

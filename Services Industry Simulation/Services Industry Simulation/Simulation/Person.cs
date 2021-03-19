@@ -93,7 +93,7 @@ namespace Services_Industry_Simulation.Simulation
                 if (person == this)
                     continue;
                 if (person.GetType() == typeof(Customer) && this.GetType() == typeof(Customer) && ((Customer)(person)).group == ((Customer)this).group) continue;
-                currentDistance = newLocation.GetDistance(person.exactLocation);
+                currentDistance = model.improvedMath.Sqrt(newLocation.GetDistance(person.exactLocation));
                 if (minDistance == -1)
                     minDistance = currentDistance;
             }

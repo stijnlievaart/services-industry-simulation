@@ -32,8 +32,8 @@ namespace Services_Industry_Simulation.Simulation
             float dx = firstPoint.x - secondPoint.x;
             float dy = firstPoint.y - secondPoint.y;
             float cSquared = dx * dx + dy * dy;
-            if (cSquared > 9) return 4;
-            return (float)Math.Sqrt(cSquared);
+            //if (cSquared > 9) return 4;
+            return cSquared;//(float)Math.Sqrt(cSquared);
         }
 
         public float GetDistance(FPoint secondPoint)
@@ -42,8 +42,8 @@ namespace Services_Industry_Simulation.Simulation
             float dy = y - secondPoint.y;
             float cSquared = dx * dx + dy * dy;
 
-            if (cSquared > 9) return 4;
-            return (float)Math.Sqrt(cSquared);
+            //if (cSquared > 9) return 4;
+            return cSquared;
         }
     }
 }

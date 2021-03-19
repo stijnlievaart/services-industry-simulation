@@ -27,7 +27,7 @@ namespace Services_Industry_Simulation.Simulation
         public int Time { get { return time; } }
 
         public HashSet<Person> peopleWalking;
-
+        public ImprovedMath improvedMath;
 
         public Model(Table[] tables, Route[] routes,int closestJ, int maxStaff, int maxSeating, int maxToilet, bool payAtRegister, float scale)
         {
@@ -63,7 +63,7 @@ namespace Services_Industry_Simulation.Simulation
             toiletManager = new ToiletManager(maxToilet,this);
             peopleWalking = new HashSet<Person>();
             this.payAtRegister = payAtRegister;
-            
+            this.improvedMath = new ImprovedMath();
 
         }
 
