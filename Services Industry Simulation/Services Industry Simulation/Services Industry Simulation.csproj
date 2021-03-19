@@ -125,6 +125,7 @@
     <None Include="Simulation\App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Results\" />
     <Folder Include="Simulation\Routes\Not used right now\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

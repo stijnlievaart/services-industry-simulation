@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.IO;
 
 namespace Services_Industry_Simulation
 {
@@ -18,6 +19,7 @@ namespace Services_Industry_Simulation
         {
             //StatisticResults sr = RunDiversPopulations();
             //return;
+            Output();
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new Form1());
@@ -112,5 +114,39 @@ namespace Services_Industry_Simulation
     class StatisticResults
     {
         public Dictionary<Config, float> means;
+       
     }
+
+    static void Output()
+        {
+            string basePath = @"C:\Temp\";
+            
+            try
+            {
+                int i = 0;
+                
+                while (true)
+                {
+                    string fileName = basePath + i + ".txt";
+
+                    if (File.Exists(fileName))
+                    {
+                        i++;
+                        continue;
+                    }
+
+                    
+
+                    using (FileStream fs = File.Create(fileName))
+                    {
+                    }
+                    break;
+                }
+
+            }
+            catch (Exception Ex)
+            {
+                Console.WriteLine(Ex.ToString());
+            }
+        }
 }
