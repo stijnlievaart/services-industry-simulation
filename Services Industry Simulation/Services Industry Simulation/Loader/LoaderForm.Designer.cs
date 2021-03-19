@@ -31,6 +31,10 @@ namespace Services_Industry_Simulation.Loader
         {
             this.FileDialog_OpenFile = new System.Windows.Forms.OpenFileDialog();
             this.button_SelectFile = new System.Windows.Forms.Button();
+            this.MaskBox = new System.Windows.Forms.ComboBox();
+            this.Confirm_Button = new System.Windows.Forms.Button();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // FileDialog_OpenFile
@@ -40,25 +44,58 @@ namespace Services_Industry_Simulation.Loader
             // 
             // button_SelectFile
             // 
-            this.button_SelectFile.Location = new System.Drawing.Point(16, 15);
-            this.button_SelectFile.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button_SelectFile.Location = new System.Drawing.Point(12, 12);
             this.button_SelectFile.Name = "button_SelectFile";
-            this.button_SelectFile.Size = new System.Drawing.Size(156, 73);
+            this.button_SelectFile.Size = new System.Drawing.Size(129, 59);
             this.button_SelectFile.TabIndex = 0;
             this.button_SelectFile.Text = "Select File";
             this.button_SelectFile.UseVisualStyleBackColor = true;
             this.button_SelectFile.Click += new System.EventHandler(this.button_SelectFile_Click);
             // 
+            // MaskBox
+            // 
+            this.MaskBox.FormattingEnabled = true;
+            this.MaskBox.Items.AddRange(new object[] {
+            "No Masks",
+            "Non-Medical Masks",
+            "N-95 Masks"});
+            this.MaskBox.Location = new System.Drawing.Point(12, 77);
+            this.MaskBox.Name = "MaskBox";
+            this.MaskBox.Size = new System.Drawing.Size(129, 21);
+            this.MaskBox.TabIndex = 8;
+            this.MaskBox.SelectedIndexChanged += new System.EventHandler(this.MaskBox_SelectedIndexChanged);
+            // 
+            // Confirm_Button
+            // 
+            this.Confirm_Button.Location = new System.Drawing.Point(12, 379);
+            this.Confirm_Button.Name = "Confirm_Button";
+            this.Confirm_Button.Size = new System.Drawing.Size(129, 59);
+            this.Confirm_Button.TabIndex = 9;
+            this.Confirm_Button.Text = "Confirm";
+            this.Confirm_Button.UseVisualStyleBackColor = true;
+            this.Confirm_Button.Click += new System.EventHandler(this.Confirm_Button_Click);
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Location = new System.Drawing.Point(169, 12);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(822, 426);
+            this.pictureBox1.TabIndex = 10;
+            this.pictureBox1.TabStop = false;
+            // 
             // LoaderForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1067, 554);
+            this.ClientSize = new System.Drawing.Size(998, 450);
+            this.Controls.Add(this.pictureBox1);
+            this.Controls.Add(this.Confirm_Button);
+            this.Controls.Add(this.MaskBox);
             this.Controls.Add(this.button_SelectFile);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "LoaderForm";
             this.Text = "LoaderForm";
             this.Load += new System.EventHandler(this.LoaderForm_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -67,5 +104,8 @@ namespace Services_Industry_Simulation.Loader
 
         private System.Windows.Forms.OpenFileDialog FileDialog_OpenFile;
         private System.Windows.Forms.Button button_SelectFile;
+        private System.Windows.Forms.ComboBox MaskBox;
+        private System.Windows.Forms.Button Confirm_Button;
+        private System.Windows.Forms.PictureBox pictureBox1;
     }
 }

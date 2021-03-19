@@ -39,6 +39,7 @@ namespace Services_Industry_Simulation
             if (loadedModel == null)
                 return;
             
+
             pictureBox1.Image = GetImageFromModel(loadedModel);
             string str = "";
             for (int i = 0; i < loadedModel.tables.Length; i++)
@@ -61,7 +62,7 @@ namespace Services_Industry_Simulation
                 }
                     
             }
-
+            
             richTextBox1.Text = str;
             base.OnPaint(e);
         }

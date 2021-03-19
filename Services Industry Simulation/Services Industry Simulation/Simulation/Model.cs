@@ -42,7 +42,7 @@ namespace Services_Industry_Simulation.Simulation
             }
         }
 
-        public Model(Table[] tables, Route[] routes,int closestJ, int maxStaff, int maxSeating, int maxToilet, bool payAtRegister, float scale, int timeLimit)
+        public Model(Table[] tables, Route[] routes,int closestJ, int maxStaff, int maxSeating, int maxToilet, bool payAtRegister, float scale, int timeLimit, int maskRules)
         {
             this.Scale = scale;
             for (int i = 0; i < routes.Length; i++)

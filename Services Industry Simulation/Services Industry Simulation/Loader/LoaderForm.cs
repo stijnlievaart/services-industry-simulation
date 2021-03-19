@@ -6,6 +6,8 @@ namespace Services_Industry_Simulation.Loader
 {
     public partial class LoaderForm : Form
     {
+        Image image;
+
         ModelWrapper modelDestination;
         public LoaderForm(ModelWrapper modelDestination)
         {
@@ -25,13 +27,33 @@ namespace Services_Industry_Simulation.Loader
             {
                 //Get the path of specified file
                 string filePath = FileDialog_OpenFile.FileName;
-                Image image = Image.FromFile(filePath);
+                image = Image.FromFile(filePath);
 
-                // Have the loader create the model.    
-                (modelDestination.bmp,modelDestination.model) = ModelLoader.GetModel(image);
-                this.Close();
+                Image preview = new Bitmap(image.Width * 20, image.Height * 20);
+                using (Graphics gr = Graphics.FromImage(preview))
+                {
+                    gr.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.HighQuality;
+                    gr.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.NearestNeighbor;
+                    gr.DrawImage(image, 0, 0, preview.Width, preview.Height);
+                }
+
+                pictureBox1.Image = preview;
+               
+                
             }
             else MessageBox.Show("File Loading Failed.");
+        }
+
+        private void MaskBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Confirm_Button_Click(object sender, EventArgs e)
+        {
+            // Have the loader create the model.    
+            (modelDestination.bmp, modelDestination.model) = ModelLoader.GetModel(image);
+            this.Close();
         }
     }
 }

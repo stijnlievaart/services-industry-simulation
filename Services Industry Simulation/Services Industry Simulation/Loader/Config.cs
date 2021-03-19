@@ -10,5 +10,13 @@
         public const int SecondsInToilet = 300;
         public const bool PayAtRegister = false;
         public const int TimeLimit = 3600*8;
+        public static int MaskRules;
+
+        public enum MaskRuleTypes
+        {
+            NoMasks,
+            NonMedicalMasks,
+            N95Masks
+        }
     }
 }
