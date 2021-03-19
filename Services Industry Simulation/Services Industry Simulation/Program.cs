@@ -45,7 +45,7 @@ namespace Services_Industry_Simulation
 
             for (int i = 0; i < models.Count; i++)
             {
-                Console.WriteLine("Starting Simulation " + i));
+                Console.WriteLine("Starting Simulation " + i);
                 Model model = models[i];
                 model.RunModel();
                 sr.means.Add(configs[i], GiveMean(model));
