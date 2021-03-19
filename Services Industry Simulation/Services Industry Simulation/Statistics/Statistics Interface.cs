@@ -78,7 +78,7 @@ namespace Services_Industry_Simulation.Statistics
             float SD = (float)Math.Sqrt(variance);
             Console.WriteLine("Mean: " + mean + "\nSD: "+SD);
 
-            //Controls.Add(CreateDistributionGraph(personInfectedByVirusesTotal.Values.ToList<float>()));
+            Controls.Add(CreateDistributionGraph(personInfectedByVirusesTotal.Values.ToList<float>()));
         }
 
         private Chart CreateDistributionGraph(List<float> points)
