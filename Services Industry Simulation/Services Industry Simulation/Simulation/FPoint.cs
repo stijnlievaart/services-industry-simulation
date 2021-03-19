@@ -31,16 +31,19 @@ namespace Services_Industry_Simulation.Simulation
         {
             float dx = firstPoint.x - secondPoint.x;
             float dy = firstPoint.y - secondPoint.y;
-
-            return (float)Math.Sqrt(Math.Pow(dx, 2) + Math.Pow(dy, 2));
+            float cSquared = dx * dx + dy * dy;
+            if (cSquared > 9) return 4;
+            return (float)Math.Sqrt(cSquared);
         }
 
         public float GetDistance(FPoint secondPoint)
         {
             float dx = x - secondPoint.x;
             float dy = y - secondPoint.y;
+            float cSquared = dx * dx + dy * dy;
 
-            return (float)Math.Sqrt(Math.Pow(dx, 2) + Math.Pow(dy, 2));
+            if (cSquared > 9) return 4;
+            return (float)Math.Sqrt(cSquared);
         }
     }
 }
