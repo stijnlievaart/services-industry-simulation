@@ -30,7 +30,7 @@ namespace Services_Industry_Simulation.Simulation
                 Customer newToileter = queueForToilet.Dequeue();
                 newToileter.exactLocation.x = 1000;
                 inToilet.Enqueue(newToileter);
-                model.AddEvent(new ToiletFinishedEvent(model.Time + Config.SecondsInToilet));
+                model.AddEvent(new ToiletFinishedEvent(model.Time + model.secondsInToilet));
             }
             
         }

@@ -1,4 +1,5 @@
-﻿using Services_Industry_Simulation.Simulation;
+﻿using Services_Industry_Simulation.Loader;
+using Services_Industry_Simulation.Simulation;
 using Services_Industry_Simulation.Statistics;
 using System;
 using System.Collections.Generic;
@@ -33,6 +34,7 @@ namespace Services_Industry_Simulation
             background = modelWrapper.bmp;
         }
 
+        Config config = new Config(0.5f, 10, 100, 4, 300, false, 3600, 2);
         protected override void OnPaint(PaintEventArgs e)
         {
             
@@ -40,7 +42,7 @@ namespace Services_Industry_Simulation
                 return;
             
 
-            pictureBox1.Image = GetImageFromModel(loadedModel);
+            pictureBox1.Image = GetImageFromModel(loadedModel,config);
             string str = "";
             for (int i = 0; i < loadedModel.tables.Length; i++)
             {
@@ -67,7 +69,7 @@ namespace Services_Industry_Simulation
             base.OnPaint(e);
         }
 
-        private Bitmap GetImageFromModel(Simulation.Model model)
+        private Bitmap GetImageFromModel(Simulation.Model model, Config config)
         {
             
             Bitmap bmp = new Bitmap(background.Width *22 , background.Height*22);
@@ -77,7 +79,7 @@ namespace Services_Industry_Simulation
                 gr.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.NearestNeighbor;
                 gr.DrawImage(background,0,0,background.Width*20,background.Height*20);
 
-                model.DrawModel(gr);
+                model.DrawModel(gr,config);
             }
 
             return bmp;

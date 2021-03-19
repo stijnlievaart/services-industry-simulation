@@ -20,12 +20,9 @@ namespace Services_Industry_Simulation.Loader
         {
             return "(" + x.ToString() + ", " + y.ToString() + ")";
         }
-        public FPoint RealWorld
+        public FPoint RealWorld(Config config)
         {
-            get
-            {
-                return new FPoint(x * Config.Scale, y * Config.Scale);
-            }
+             return new FPoint(x * config.Scale, y * config.Scale);
         }
     }
 }

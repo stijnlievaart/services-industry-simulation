@@ -47,24 +47,25 @@ namespace Services_Industry_Simulation.Loader
 
         private void MaskBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Config.MaskRules = MaskBox.SelectedIndex;
+            //Config.MaskRules = MaskBox.SelectedIndex;
         }
 
         private void Confirm_Button_Click(object sender, EventArgs e)
         {
             // Have the loader create the model.    
-            (modelDestination.bmp, modelDestination.model) = ModelLoader.GetModel(image);
+            Config config = new Config(0.5f, 10, 100, 4, 300, false, 3600, 2);
+            (modelDestination.bmp, modelDestination.model) = ModelLoader.GetModel(image,config);
             
             switch (MaskBox.SelectedIndex)
             {
                 case 0:
-                    Config.MaskFactor = 1;
+                    //Config.MaskFactor = 1;
                     break;
                 case 1:
-                    Config.MaskFactor = 2;
+                   // Config.MaskFactor = 2;
                     break;
                 case 2:
-                    Config.MaskFactor = 5;
+                    //config.MaskFactor = 5;
                     break;
             }
             this.Close();

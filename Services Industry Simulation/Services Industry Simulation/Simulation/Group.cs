@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Services_Industry_Simulation.Loader;
+using System.Collections.Generic;
 using System.Drawing;
 
 namespace Services_Industry_Simulation.Simulation
@@ -50,11 +51,11 @@ namespace Services_Industry_Simulation.Simulation
             }
         }
         
-        public void DrawGroup(Graphics gr)
+        public void DrawGroup(Graphics gr,Config config)
         {
             foreach(Customer customer in customers)
             {
-                customer.DrawCustomer(gr);
+                customer.DrawCustomer(gr,config);
             }
         }
 

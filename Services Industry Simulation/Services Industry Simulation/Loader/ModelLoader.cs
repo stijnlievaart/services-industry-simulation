@@ -6,7 +6,7 @@ namespace Services_Industry_Simulation.Loader
 {
     static class ModelLoader
     {
-        public static (Bitmap,Model) GetModel(Image image)
+        public static (Bitmap,Model) GetModel(Image image,Config config)
         {
             char[,] debug = new char[20, 40];
             for (int i = 0; i < 20; i++)
@@ -85,7 +85,7 @@ namespace Services_Industry_Simulation.Loader
                     }
                     else if(Colors.Equal(color,Colors.Register))
                     {
-                        register = new FPoint(i * Config.Scale, j * Config.Scale);
+                        register = new FPoint(i * config.Scale, j * config.Scale);
                         registerFound = true;
                         routeTiles.Add((i, j), RouteConstructor.RouteTile.Pay);
                     }
@@ -97,8 +97,8 @@ namespace Services_Industry_Simulation.Loader
             if (!registerFound) throw new Exception("No register on route");
 
             // Generate the routes
-            Route[] routes = RouteConstructor.GenerateRoutes(routeTiles, debug);
-            Table[] tables = TableConstructor.GenerateTables(tableTiles, debug,routes);
+            Route[] routes = RouteConstructor.GenerateRoutes(routeTiles, debug,config);
+            Table[] tables = TableConstructor.GenerateTables(tableTiles, debug,routes,config);
 
             Route closestRoute = null;
 
@@ -131,8 +131,7 @@ namespace Services_Industry_Simulation.Loader
                 }
                 Console.WriteLine();
             }
-            return (bmp,new Model(tables, routes,closestJ, Config.MaxStaff,Config.MaxSeating,Config.MaxInToilet,Config.PayAtRegister,Config.Scale,Config.TimeLimit,Config.MaskRules));
-            
+            return (bmp,new Model(tables, routes,closestJ, config.MaxStaff, config.MaxSeating, config.MaxInToilet,config.SecondsInToilet, config.PayAtRegister, config.Scale, config.TimeLimit,config.MaskFactor));
         }
 
     }

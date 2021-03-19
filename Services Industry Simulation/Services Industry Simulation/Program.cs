@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Services_Industry_Simulation.Loader;
+using Services_Industry_Simulation.Simulation;
+using System;
+using System.Collections.Generic;
 using System.Windows.Forms;
 
 namespace Services_Industry_Simulation
@@ -11,9 +14,22 @@ namespace Services_Industry_Simulation
         [STAThread]
         static void Main()
         {
+            StatisticResults sr = RunDiversPopulations();
+            return;
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new Form1());
         }
+
+        public static StatisticResults RunDiversPopulations()
+        {
+
+        }
+    }
+
+    class StatisticResults
+    {
+        public Model model;
+        public Dictionary<Config, float> means;
     }
 }

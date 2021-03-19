@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Services_Industry_Simulation.Loader;
+using System.Collections.Generic;
 using System.Drawing;
 
 namespace Services_Industry_Simulation.Simulation
@@ -45,11 +46,11 @@ namespace Services_Industry_Simulation.Simulation
             activeGroup.Update(model);
         }
 
-        public void DrawTable(Graphics gr)
+        public void DrawTable(Graphics gr,Config config)
         {
             if (activeGroup != null)
             {
-                activeGroup.DrawGroup(gr);
+                activeGroup.DrawGroup(gr,config);
             }
             return;
         }

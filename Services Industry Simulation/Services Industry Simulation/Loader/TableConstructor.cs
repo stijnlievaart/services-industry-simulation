@@ -31,7 +31,7 @@ namespace Services_Industry_Simulation.Loader
             tableSquares.Add(pair);
         }
 
-        public Table GenerateTable(Route[] routes)
+        public Table GenerateTable(Route[] routes,Config config)
         {
             // Calculate size of table by furthest table sides
             IPoint min = new IPoint(int.MaxValue, int.MaxValue);
@@ -44,14 +44,14 @@ namespace Services_Industry_Simulation.Loader
                 if (square.y > max.y) max.y = square.y;
                 if (square.y < min.y) min.y = square.y;
             }
-            FPoint size = new FPoint((max.x - min.x) * Config.Scale, (max.y - min.y) * Config.Scale);
-            FPoint location = new FPoint(min.x * Config.Scale, min.y * Config.Scale);
+            FPoint size = new FPoint((max.x - min.x) * config.Scale, (max.y - min.y) * config.Scale);
+            FPoint location = new FPoint(min.x * config.Scale, min.y * config.Scale);
             Seat[] constructedSeats = new Seat[seats.Count];
             // Get seats
             for (int i = 0; i < seats.Count; i++)
             {
                 IPoint seatLoc = seats[i];
-                FPoint floatSeatLoc = new FPoint(seatLoc.x * Config.Scale, seatLoc.y * Config.Scale);
+                FPoint floatSeatLoc = new FPoint(seatLoc.x * config.Scale, seatLoc.y * config.Scale);
                 constructedSeats[i] = new Seat(floatSeatLoc);
             }
 
@@ -75,7 +75,7 @@ namespace Services_Industry_Simulation.Loader
                 }
             }
             if (closestRoute == null) throw new Exception("No route found that has the closest point.");
-            return new Table(constructedSeats,closestJ*Config.Scale, closestRoute, location, size);
+            return new Table(constructedSeats,closestJ*config.Scale, closestRoute, location, size);
         }
         /*
         // Debugging
@@ -105,7 +105,7 @@ namespace Services_Industry_Simulation.Loader
 
 
         // Static Generate Method
-        public static Table[] GenerateTables(Dictionary<(int, int), TableTile> tiles, char[,] debug, Route[] routes)
+        public static Table[] GenerateTables(Dictionary<(int, int), TableTile> tiles, char[,] debug, Route[] routes,Config config)
         {
             List<TableConstructor> tables = new List<TableConstructor>();
 
@@ -148,7 +148,7 @@ namespace Services_Industry_Simulation.Loader
             Table[] constructedTables = new Table[tables.Count];
             for (int i = 0; i < tables.Count; i++)
             {
-                constructedTables[i] = tables[i].GenerateTable(routes);
+                constructedTables[i] = tables[i].GenerateTable(routes,config);
             }
             return constructedTables;
         }

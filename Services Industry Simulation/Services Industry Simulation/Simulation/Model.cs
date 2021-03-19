@@ -1,4 +1,5 @@
 ﻿using Services_Industry_Simulation.Imports;
+using Services_Industry_Simulation.Loader;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -16,6 +17,7 @@ namespace Services_Industry_Simulation.Simulation
         public readonly Route toiletRouteExit;
         public readonly Route registerRoute;
         public readonly float registerLocation;
+        public readonly int secondsInToilet;
         public readonly Route exitRoute;
         public readonly Route entryRoute;
         public readonly float Scale;
@@ -26,7 +28,7 @@ namespace Services_Industry_Simulation.Simulation
         int time;
         public readonly bool payAtRegister;
         public int Time { get { return time; } }
-        public int maskRules;
+        public int maskFactor;
         public HashSet<Person> peopleWalking;
 
         public void RunModel()
@@ -46,8 +48,9 @@ namespace Services_Industry_Simulation.Simulation
             }
         }
 
-        public Model(Table[] tables, Route[] routes,int closestJ, int maxStaff, int maxSeating, int maxToilet, bool payAtRegister, float scale, int timeLimit, int maskRules)
+        public Model(Table[] tables, Route[] routes,int closestJ, int maxStaff, int maxSeating, int maxToilet,int toiletTime, bool payAtRegister, float scale, int timeLimit, int maskFactor)
         {
+            this.secondsInToilet = toiletTime;
             this.Scale = scale;
             for (int i = 0; i < routes.Length; i++)
             {
@@ -81,7 +84,7 @@ namespace Services_Industry_Simulation.Simulation
             peopleWalking = new HashSet<Person>();
             this.payAtRegister = payAtRegister;
             this.stopTime = timeLimit   ;
-            this.maskRules = maskRules;
+            this.maskFactor = maskFactor;
 
         }
 
@@ -117,11 +120,11 @@ namespace Services_Industry_Simulation.Simulation
             }
         }
 
-        public void DrawModel(Graphics gr)
+        public void DrawModel(Graphics gr,Config config)
         {
             foreach (Table table in tables)
             {
-                table.DrawTable(gr);
+                table.DrawTable(gr,config);
             }
             foreach (Person person in peopleWalking)
             {

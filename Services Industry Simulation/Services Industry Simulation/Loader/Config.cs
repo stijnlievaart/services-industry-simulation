@@ -1,23 +1,26 @@
 ﻿namespace Services_Industry_Simulation.Loader
 {
-    static class Config
+    public class Config
     {
         // Scale in int -> meters
-        public const float Scale = 0.5f;
-        public const int MaxStaff = 10;
-        public const int MaxSeating = 100;
-        public const int MaxInToilet = 4;
-        public const int SecondsInToilet = 300;
-        public const bool PayAtRegister = false;
-        public const int TimeLimit = 3600;
-        public static int MaskRules = 0;
-        public static float MaskFactor;
-
-        public enum MaskRuleTypes
+        public readonly float Scale = 0.5f;
+        public readonly int MaxStaff = 10;
+        public readonly int MaxSeating = 25;
+        public readonly int MaxInToilet = 4;
+        public readonly int SecondsInToilet = 300;
+        public readonly bool PayAtRegister = false;
+        public readonly int TimeLimit = 3600*24;
+        public readonly int MaskFactor;
+        public Config(float scale, int maxStaff, int maxSeating, int maxInToilet, int secondsInToilet, bool payAtRegister, int timeLimit, int maskFactor)
         {
-            NoMasks,
-            NonMedicalMasks,
-            N95Masks
+            this.Scale = scale;
+            this.MaxStaff = maxStaff;
+            this.MaxSeating = maxSeating;
+            this.MaxInToilet = maxInToilet;
+            this.SecondsInToilet = secondsInToilet;
+            this.PayAtRegister = payAtRegister;
+            this.TimeLimit = timeLimit;
+            this.MaskFactor = maskFactor;
         }
     }
 }

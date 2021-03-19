@@ -54,12 +54,12 @@ namespace Services_Industry_Simulation.Loader
             this.end = pair;
         }
 
-        public Route GenerateRoute()
+        public Route GenerateRoute(Config config)
         {
             FPoint[] points = new FPoint[via.Count];
             List<IPoint> bufferFront = new List<IPoint>();
-            points[0] = start.RealWorld;
-            points[points.Length - 1] = end.RealWorld;
+            points[0] = start.RealWorld(config);
+            points[points.Length - 1] = end.RealWorld(config);
             for (int i = 0; i < via.Count; i++)
             {
                 IPoint p = via[i];
@@ -67,7 +67,7 @@ namespace Services_Industry_Simulation.Loader
                 {
                     for (int j = 0; j < bufferFront.Count; j++)
                     {
-                        points[1 + j] = bufferFront[bufferFront.Count-j-1].RealWorld;
+                        points[1 + j] = bufferFront[bufferFront.Count-j-1].RealWorld(config);
                     }
                     bufferFront = new List<IPoint>();
                 }
@@ -75,15 +75,15 @@ namespace Services_Industry_Simulation.Loader
                 {
                     for (int k = 0; k < bufferFront.Count; k++)
                     {
-                        points[via.Count-k-2] = bufferFront[(bufferFront.Count-k-1)].RealWorld;
+                        points[via.Count-k-2] = bufferFront[(bufferFront.Count-k-1)].RealWorld(config);
                     }
                     bufferFront = new List<IPoint>();
                 }
                 else bufferFront.Add(p);
             }
 
-            FPoint newEnd = end.RealWorld;
-            FPoint newStart = start.RealWorld;
+            FPoint newEnd = end.RealWorld(config);
+            FPoint newStart = start.RealWorld(config);
             this.constructedRoute = new Route(newStart, newEnd, points,TypeToRouteType(type));
             return constructedRoute;
         }
@@ -134,7 +134,7 @@ namespace Services_Industry_Simulation.Loader
 
 
         // Static Methods for generating routes
-        public static Route[] GenerateRoutes(Dictionary<(int, int), RouteTile> tiles, char[,] debug)
+        public static Route[] GenerateRoutes(Dictionary<(int, int), RouteTile> tiles, char[,] debug,Config config)
         {
             List<RouteConstructor> routes = new List<RouteConstructor>();
 
@@ -188,7 +188,7 @@ namespace Services_Industry_Simulation.Loader
 
             for (int i = 0; i < routes.Count; i++)
             {
-                constructedRoutes[i] = routes[i].GenerateRoute();
+                constructedRoutes[i] = routes[i].GenerateRoute(config);
             }
 
             for (int i = 0; i < routes.Count; i++)

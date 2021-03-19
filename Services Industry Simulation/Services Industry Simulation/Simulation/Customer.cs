@@ -24,7 +24,7 @@ namespace Services_Industry_Simulation.Simulation
         /// </summary>
         /// <param name="secondPerson"></param>
         /// <returns></returns>
-        public float GetOddsOfInfection(Person secondPerson)
+        public float GetOddsOfInfection(Person secondPerson,Model model)
         {
             float odds;
             float angleFactor = GetAngleFactor(secondPerson);
@@ -37,19 +37,19 @@ namespace Services_Industry_Simulation.Simulation
             }
             float x = distance + 1;
             odds = (float)(0.2 / Math.Abs(x*x));
-            odds = odds / Config.MaskFactor;
+            odds = odds / model.maskFactor;
             return odds;
         }
 
-        public void DrawCustomer(Graphics gr)
+        public void DrawCustomer(Graphics gr,Config config)
         {
-            gr.FillEllipse(Brushes.HotPink, exactLocation.x * 20 / Config.Scale, exactLocation.y * 20 / Config.Scale, 20, 20);
+            gr.FillEllipse(Brushes.HotPink, exactLocation.x * 20 / config.Scale, exactLocation.y * 20 / config.Scale, 20, 20);
         }
 
-        public void DoInfection(Person secondPerson)
+        public void DoInfection(Person secondPerson,Model model)
         {
 
-            float infectionOdds = GetOddsOfInfection(secondPerson);
+            float infectionOdds = GetOddsOfInfection(secondPerson,model);
 
             Virus virusNew = secondPerson.virus;
             if (infections.ContainsKey(virusNew))
@@ -96,14 +96,14 @@ namespace Services_Industry_Simulation.Simulation
                 for (int j = 0; j < t.activeGroup.customers.Count; j++)
                 {
                     Customer p = t.activeGroup.customers[j];
-                    this.DoInfection(p);
+                    this.DoInfection(p,model);
                 }
             }
 
             for (int j = 0; j < model.staffManager.staff.Length; j++)
             {
                 Staff p = model.staffManager.staff[j];
-                this.DoInfection(p);
+                this.DoInfection(p,model);
             }
         }
 
