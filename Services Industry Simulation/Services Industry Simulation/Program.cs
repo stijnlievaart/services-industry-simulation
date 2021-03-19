@@ -23,7 +23,7 @@ namespace Services_Industry_Simulation
 
         public static StatisticResults RunDiversPopulations()
         {
-
+            return null;
         }
     }
 
