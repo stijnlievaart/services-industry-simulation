@@ -40,6 +40,12 @@ namespace Services_Industry_Simulation.Simulation
             Route oldRoute = onRoute;
             float oldOnRouteLocation = onRouteLocation;
             FPoint oldExactLocation = exactLocation;
+            
+            if (oldLocation == null)
+            {
+                oldLocation = exactLocation;
+            }
+
             if (goalRoute == null)
             {
                 return;
@@ -69,12 +75,16 @@ namespace Services_Industry_Simulation.Simulation
                 onRouteLocation += speed;
                 exactLocation = onRoute.via[(int)(onRouteLocation / model.Scale)];
             }
-            
-            
 
-            if (true||CheckIfSafe(model, exactLocation))
+
+
+            if (CheckIfSafe(model, exactLocation))
             {
                 oldLocation = exactLocation;
+            }
+            else if (CheckDistance(model, exactLocation) >= CheckDistance(model, oldLocation))
+            {
+               oldLocation = exactLocation;
             }
             else
             {
@@ -95,12 +105,45 @@ namespace Services_Industry_Simulation.Simulation
                 if (person.GetType() == typeof(Customer) && this.GetType() == typeof(Customer) && ((Customer)(person)).group == ((Customer)this).group) continue;
                 currentDistance = newLocation.GetDistance(person.exactLocation);
                 if (minDistance == -1)
+                {
                     minDistance = currentDistance;
+                }
+                else if ( currentDistance < minDistance)
+                {
+                    minDistance = currentDistance;
+                }
             }
 
             if (minDistance > 1.5 || minDistance == -1)
                 return true;
             return false;
+        }
+
+        public float CheckDistance(Model model, FPoint location)
+        {
+                   
+            float minDistance = -1;
+            float currentDistance;
+            
+            foreach (Person person in model.peopleWalking)
+            {
+                if (person == this)
+                    continue;
+                if (person.GetType() == typeof(Customer) && this.GetType() == typeof(Customer) && ((Customer)(person)).group == ((Customer)this).group) continue;
+                currentDistance = location.GetDistance(person.exactLocation);
+                if (minDistance == -1)
+                {
+                    minDistance = currentDistance;
+                }
+                else if ( currentDistance < minDistance)
+                {
+                    minDistance = currentDistance;
+                }
+            }
+            
+
+            return minDistance;
+
         }
 
         /// <summary>
