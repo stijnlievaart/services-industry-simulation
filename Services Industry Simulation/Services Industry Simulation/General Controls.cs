@@ -1,5 +1,7 @@
 ﻿using Services_Industry_Simulation.Simulation;
+using Services_Industry_Simulation.Statistics;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.Windows.Forms;
@@ -84,11 +86,7 @@ namespace Services_Industry_Simulation
         {
             Stopwatch sw = new Stopwatch();
             sw.Start();
-            for (int i = 0; i < 1; i++)
-            {
-                loadedModel.Update();
-                //Application.DoEvents();
-            }
+            loadedModel.RunModel();
             sw.Stop();
             this.Invalidate();
             Console.WriteLine(sw.ElapsedMilliseconds + "ms per frame.");
@@ -126,6 +124,12 @@ namespace Services_Industry_Simulation
             sw.Stop();
             this.Invalidate();
             Console.WriteLine(sw.ElapsedMilliseconds/10000f +"ms per frame.");
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            Form statistics = new Statistics_Interface(new List<Model>() {loadedModel });
+            statistics.Show();
         }
     }
 }

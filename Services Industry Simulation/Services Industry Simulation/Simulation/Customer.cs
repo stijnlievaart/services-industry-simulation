@@ -44,6 +44,7 @@ namespace Services_Industry_Simulation.Simulation
 
         public void DoInfection(Person secondPerson)
         {
+
             float infectionOdds = GetOddsOfInfection(secondPerson);
 
             Virus virusNew = secondPerson.virus;

@@ -43,7 +43,7 @@ namespace Services_Industry_Simulation.Simulation
                 Staff s = availableStaff.Dequeue();
                 TaskEvent task = tasksToDo.Dequeue();
                 s.currentTask = task;
-                s.DoTask(task.table,model);
+                s.DoTask(model);
             }
 
             for (int i = 0; i < staff.Length; i++)

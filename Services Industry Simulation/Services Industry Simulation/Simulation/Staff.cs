@@ -40,9 +40,9 @@ namespace Services_Industry_Simulation.Simulation
             }
         }
 
-        public void DoTask(Table table,Model model)
+        public void DoTask(Model model)
         {
-            StartRouteTo(model.staffRouteStart, 0, table.onRoute, table.onRouteLocation, model);
+            StartRouteTo(model.staffRouteStart, 0, currentTask.table.onRoute, currentTask.table.onRouteLocation, model);
         }
 
     }

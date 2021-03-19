@@ -131,7 +131,7 @@ namespace Services_Industry_Simulation.Loader
                 }
                 Console.WriteLine();
             }
-            return (bmp,new Model(tables, routes,closestJ, Config.MaxStaff,Config.MaxSeating,Config.MaxInToilet,Config.PayAtRegister,Config.Scale));
+            return (bmp,new Model(tables, routes,closestJ, Config.MaxStaff,Config.MaxSeating,Config.MaxInToilet,Config.PayAtRegister,Config.Scale,Config.TimeLimit));
         }
 
     }

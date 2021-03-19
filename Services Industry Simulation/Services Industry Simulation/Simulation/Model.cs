@@ -6,6 +6,7 @@ namespace Services_Industry_Simulation.Simulation
 {
     public class Model
     {
+        public readonly int stopTime;
         public Table[] tables;
         public int maxSeating;
         Route[] routes;
@@ -28,8 +29,20 @@ namespace Services_Industry_Simulation.Simulation
 
         public HashSet<Person> peopleWalking;
 
+        public void RunModel()
+        {
+            while (time < stopTime) Update();
+            for (int i = 0; i < tables.Length; i++)
+            {
+                Table t = tables[i];
+                if(t.activeGroup!=null)
+                {
+                    t.pastGroups.Add(t.activeGroup);
+                }
+            }
+        }
 
-        public Model(Table[] tables, Route[] routes,int closestJ, int maxStaff, int maxSeating, int maxToilet, bool payAtRegister, float scale)
+        public Model(Table[] tables, Route[] routes,int closestJ, int maxStaff, int maxSeating, int maxToilet, bool payAtRegister, float scale, int timeLimit)
         {
             this.Scale = scale;
             for (int i = 0; i < routes.Length; i++)
@@ -63,7 +76,7 @@ namespace Services_Industry_Simulation.Simulation
             toiletManager = new ToiletManager(maxToilet,this);
             peopleWalking = new HashSet<Person>();
             this.payAtRegister = payAtRegister;
-            
+            this.stopTime = timeLimit   ;
 
         }
 
@@ -151,7 +164,7 @@ namespace Services_Industry_Simulation.Simulation
                 }
                 AddEvent(new TaskEvent(Time + 780, t));
 
-                AddEvent(new PayEvent(Time + 3600,customers[0]));
+                AddEvent(new PayEvent(Time + 1800,customers[0]));
             }
         }
 

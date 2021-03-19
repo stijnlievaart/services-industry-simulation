@@ -24,7 +24,10 @@ namespace Services_Industry_Simulation.Statistics
 
         private void ProcessModels()
         {
-            
+            for (int i = 0; i < myModels.Count; i++)
+            {
+                ProcessModel(myModels[i]);
+            }
         }
 
         private void ProcessModel(Model model)
@@ -54,32 +57,75 @@ namespace Services_Industry_Simulation.Statistics
                 }
             }
 
-            Chart distributionOfVirusSpreads = CreateDistributionGraph(personInfectedByVirusesTotal.Values.ToList<float>(),0.01f);
+
+            //Calculate mean.
+            float sum = 0;
+            foreach (KeyValuePair<Person,float> pair in personInfectedByVirusesTotal)
+            {
+                sum += pair.Value;
+            }
+            float mean = sum / personInfectedByVirusesTotal.Count;
+
+            //Calculate SD.
+            float varianceSum = 0;
+            foreach (KeyValuePair<Person, float> pair in personInfectedByVirusesTotal)
+            {
+                float dx = (pair.Value - mean);
+                varianceSum += dx*dx;
+            }
+
+            float variance = varianceSum / (personInfectedByVirusesTotal.Count - 1);
+            float SD = (float)Math.Sqrt(variance);
+            Console.WriteLine("Mean: " + mean + "\nSD: "+SD);
+
+            Controls.Add(CreateDistributionGraph(personInfectedByVirusesTotal.Values.ToList<float>()));
         }
 
-        private Chart CreateDistributionGraph(List<float> points, float fragmentSize)
+        private Chart CreateDistributionGraph(List<float> points)
         {
-            Series series = new Series("Distibution");
-            series.ChartType = SeriesChartType.FastPoint;
-
-            Dictionary<int, int> division = new Dictionary<int, int>();
+            points.Sort();
+            float min = 0;
+            float max = points[points.Count-1];
+            int amountOfDots = 100;
+            Dictionary<int, int> distribution = new Dictionary<int, int>();
 
             for (int i = 0; i < points.Count; i++)
             {
-                float p = points[i];
-                int location = (int)(p / fragmentSize);
-                if (division.ContainsKey(location)) division[location] = division[location] + 1;
-                else division.Add(location, 1);
+                float value = points[i];
+                int loc = (int)(value / (max - min) * (amountOfDots-1));
+                if(!distribution.ContainsKey(loc))distribution.Add(loc, 1);
+                else distribution[loc] = distribution[loc] + 1;
             }
 
-            foreach (KeyValuePair<int,int> pair in division)
+            Series series = new Series()
             {
-                series.Points.AddXY(pair.Key, pair.Value / points.Count * 100);
+                Name = "VirusSpreads/Person",
+                Color = System.Drawing.Color.Green,
+                IsVisibleInLegend = true,
+                IsXValueIndexed = true,
+                ChartType = SeriesChartType.Line
+            };
+
+            
+            foreach (var item in distribution)
+            {
+                series.Points.AddXY(points[(int)(item.Key/(float)amountOfDots*points.Count)], item.Value);
             }
 
 
             Chart chart = new Chart();
-
+            ChartArea ch = new ChartArea();
+            ch.Name = "ChartArea1";
+            chart.ChartAreas.Add(ch);
+            ch.AxisX.IsLogarithmic = false;
+            chart.Dock = System.Windows.Forms.DockStyle.Fill;
+            Legend lgd = new Legend("Legend1");
+            chart.Legends.Add(lgd);
+            chart.Location = new System.Drawing.Point(0, 50);
+            chart.Name = "chart1";
+            // this.chart1.Size = new System.Drawing.Size(284, 212);
+            chart.TabIndex = 0;
+            chart.Text = "chart1";
 
             chart.Series.Add(series);
 
@@ -87,6 +133,11 @@ namespace Services_Industry_Simulation.Statistics
         }
 
         private void Statistics_Interface_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void chart1_Click(object sender, EventArgs e)
         {
 
         }
