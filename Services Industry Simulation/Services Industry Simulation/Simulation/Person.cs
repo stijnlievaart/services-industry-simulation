@@ -14,6 +14,7 @@ namespace Services_Industry_Simulation.Simulation
         public FPoint oldLocation;
         private readonly float speed = 0.5f; //TODO: decide on speed value
         private bool onCorrectRoute;
+        private int timeSpentOnLocation;
 
         public Vector2 lookAngle;
 
@@ -76,8 +77,6 @@ namespace Services_Industry_Simulation.Simulation
                 exactLocation = onRoute.via[(int)(onRouteLocation / model.Scale)];
             }
 
-
-
             if (CheckIfSafe(model, exactLocation))
             {
                 oldLocation = exactLocation;
@@ -88,9 +87,20 @@ namespace Services_Industry_Simulation.Simulation
             }
             else
             {
+                if(timeSpentOnLocation > 10)
+                {
+                    timeSpentOnLocation = 0;
+                    oldLocation = exactLocation;
+                    return;
+
+                }
                 onRoute = oldRoute;
                 onRouteLocation = oldOnRouteLocation;
+                timeSpentOnLocation++;
+                return;
+
             }
+            timeSpentOnLocation = 0;
         }
 
         public bool CheckIfSafe(Model model,FPoint newLocation)
