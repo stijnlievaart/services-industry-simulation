@@ -16,8 +16,8 @@ namespace Services_Industry_Simulation
         [STAThread]
         static void Main()
         {
-            StatisticResults sr = RunDiversPopulations();
-            return;
+            //StatisticResults sr = RunDiversPopulations();
+            //return;
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new Form1());
@@ -35,9 +35,9 @@ namespace Services_Industry_Simulation
 
 
             // Model generation
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < 11; i++)
             {
-                Config config = new Config(0.5f,10,i*10,6,200,false,2880,1);
+                Config config = new Config(0.5f,10,i*10,6,200,true,15000,1);
                 configs.Add(config);
                 (Bitmap b,Model model) = ModelLoader.GetModel(bmp, config);
                 models.Add(model);
@@ -49,6 +49,11 @@ namespace Services_Industry_Simulation
                 Model model = models[i];
                 model.RunModel();
                 sr.means.Add(configs[i], GiveMean(model));
+                
+            }
+            for (int i = 0; i < models.Count; i++)
+            {
+                Console.WriteLine("Mean for :" + (i*10).ToString() + " customers: " + sr.means[configs[i]]);
             }
 
             return sr;
