@@ -35,9 +35,10 @@ namespace Services_Industry_Simulation.Simulation
             {
                 return 0;
             }
-            odds = (float)(0.2 / Math.Abs(Math.Pow(distance + 1, 2)));
+            float x = distance + 1;
+            odds = (float)(0.2 / Math.Abs(x*x));
             odds = odds / Config.MaskFactor;
-            return (float)(0.2 /Math.Abs(Math.Pow(distance+1,2)));
+            return odds;
         }
 
         public void DrawCustomer(Graphics gr)
@@ -59,7 +60,6 @@ namespace Services_Industry_Simulation.Simulation
             {
                 infections.Add(virusNew, infectionOdds);
             }
-            if (infections[virusNew] > 100) infections[virusNew] = 100;
         }
 
         public override void Arrival(GoalType goal,Model model)
