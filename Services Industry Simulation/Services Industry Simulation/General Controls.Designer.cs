@@ -45,7 +45,7 @@ namespace Services_Industry_Simulation
             this.button_LoadModel.Location = new System.Drawing.Point(13, 14);
             this.button_LoadModel.Margin = new System.Windows.Forms.Padding(4);
             this.button_LoadModel.Name = "button_LoadModel";
-            this.button_LoadModel.Size = new System.Drawing.Size(173, 70);
+            this.button_LoadModel.Size = new System.Drawing.Size(130, 57);
             this.button_LoadModel.TabIndex = 0;
             this.button_LoadModel.Text = "Load a model From PNG";
             this.button_LoadModel.UseVisualStyleBackColor = true;
@@ -56,7 +56,7 @@ namespace Services_Industry_Simulation
             this.pictureBox1.Location = new System.Drawing.Point(201, 16);
             this.pictureBox1.Margin = new System.Windows.Forms.Padding(4);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(1093, 707);
+            this.pictureBox1.Size = new System.Drawing.Size(820, 574);
             this.pictureBox1.TabIndex = 1;
             this.pictureBox1.TabStop = false;
             this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
@@ -66,7 +66,7 @@ namespace Services_Industry_Simulation
             this.button1.Location = new System.Drawing.Point(13, 92);
             this.button1.Margin = new System.Windows.Forms.Padding(4);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(173, 58);
+            this.button1.Size = new System.Drawing.Size(130, 47);
             this.button1.TabIndex = 2;
             this.button1.Text = "Run model";
             this.button1.UseVisualStyleBackColor = true;
@@ -74,9 +74,10 @@ namespace Services_Industry_Simulation
             // 
             // richTextBox1
             // 
-            this.richTextBox1.Location = new System.Drawing.Point(1301, 14);
+            this.richTextBox1.Location = new System.Drawing.Point(976, 11);
+            this.richTextBox1.Margin = new System.Windows.Forms.Padding(2);
             this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(596, 709);
+            this.richTextBox1.Size = new System.Drawing.Size(448, 577);
             this.richTextBox1.TabIndex = 3;
             this.richTextBox1.Text = "";
             // 
@@ -96,7 +97,7 @@ namespace Services_Industry_Simulation
             this.button3.Location = new System.Drawing.Point(13, 298);
             this.button3.Margin = new System.Windows.Forms.Padding(4);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(173, 58);
+            this.button3.Size = new System.Drawing.Size(130, 47);
             this.button3.TabIndex = 5;
             this.button3.Text = "Tick 1000x";
             this.button3.UseVisualStyleBackColor = true;
@@ -126,7 +127,7 @@ namespace Services_Industry_Simulation
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1924, 777);
             this.Controls.Add(this.button5);

@@ -26,7 +26,7 @@ namespace Services_Industry_Simulation.Simulation
         int time;
         public readonly bool payAtRegister;
         public int Time { get { return time; } }
-
+        public int maskRules;
         public HashSet<Person> peopleWalking;
 
         public void RunModel()
@@ -46,7 +46,7 @@ namespace Services_Industry_Simulation.Simulation
             }
         }
 
-        public Model(Table[] tables, Route[] routes,int closestJ, int maxStaff, int maxSeating, int maxToilet, bool payAtRegister, float scale, int timeLimit)
+        public Model(Table[] tables, Route[] routes,int closestJ, int maxStaff, int maxSeating, int maxToilet, bool payAtRegister, float scale, int timeLimit, int maskRules)
         {
             this.Scale = scale;
             for (int i = 0; i < routes.Length; i++)
@@ -81,6 +81,7 @@ namespace Services_Industry_Simulation.Simulation
             peopleWalking = new HashSet<Person>();
             this.payAtRegister = payAtRegister;
             this.stopTime = timeLimit   ;
+            this.maskRules = maskRules;
 
         }
 

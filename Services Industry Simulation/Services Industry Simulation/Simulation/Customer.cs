@@ -26,6 +26,7 @@ namespace Services_Industry_Simulation.Simulation
         /// <returns></returns>
         public float GetOddsOfInfection(Person secondPerson)
         {
+            float odds;
             float angleFactor = GetAngleFactor(secondPerson);
 
             float distance = exactLocation.GetDistance(secondPerson.exactLocation);
@@ -34,7 +35,9 @@ namespace Services_Industry_Simulation.Simulation
             {
                 return 0;
             }
-            return (float)(1 /Math.Abs(Math.Pow(distance+1,3)));
+            odds = (float)(0.2 / Math.Abs(Math.Pow(distance + 1, 2)));
+            odds = odds / Config.MaskFactor;
+            return (float)(0.2 /Math.Abs(Math.Pow(distance+1,2)));
         }
 
         public void DrawCustomer(Graphics gr)

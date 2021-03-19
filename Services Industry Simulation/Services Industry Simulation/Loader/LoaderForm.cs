@@ -6,12 +6,15 @@ namespace Services_Industry_Simulation.Loader
 {
     public partial class LoaderForm : Form
     {
+        Image image;
+
         ModelWrapper modelDestination;
         public LoaderForm(ModelWrapper modelDestination)
         {
             InitializeComponent();
             // Save wrapper to give back the model later on.
             this.modelDestination = modelDestination;
+            MaskBox.SelectedIndex = 0;
         }
 
         private void LoaderForm_Load(object sender, EventArgs e)
@@ -25,13 +28,46 @@ namespace Services_Industry_Simulation.Loader
             {
                 //Get the path of specified file
                 string filePath = FileDialog_OpenFile.FileName;
-                Image image = Image.FromFile(filePath);
+                image = Image.FromFile(filePath);
 
-                // Have the loader create the model.    
-                (modelDestination.bmp,modelDestination.model) = ModelLoader.GetModel(image);
-                this.Close();
+                Image preview = new Bitmap(image.Width * 20, image.Height * 20);
+                using (Graphics gr = Graphics.FromImage(preview))
+                {
+                    gr.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.HighQuality;
+                    gr.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.NearestNeighbor;
+                    gr.DrawImage(image, 0, 0, preview.Width, preview.Height);
+                }
+
+                pictureBox1.Image = preview;
+               
+                
             }
             else MessageBox.Show("File Loading Failed.");
+        }
+
+        private void MaskBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Config.MaskRules = MaskBox.SelectedIndex;
+        }
+
+        private void Confirm_Button_Click(object sender, EventArgs e)
+        {
+            // Have the loader create the model.    
+            (modelDestination.bmp, modelDestination.model) = ModelLoader.GetModel(image);
+            
+            switch (MaskBox.SelectedIndex)
+            {
+                case 0:
+                    Config.MaskFactor = 1;
+                    break;
+                case 1:
+                    Config.MaskFactor = 2;
+                    break;
+                case 2:
+                    Config.MaskFactor = 5;
+                    break;
+            }
+            this.Close();
         }
     }
 }
