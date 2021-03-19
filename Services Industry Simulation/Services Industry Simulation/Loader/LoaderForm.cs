@@ -14,6 +14,7 @@ namespace Services_Industry_Simulation.Loader
             InitializeComponent();
             // Save wrapper to give back the model later on.
             this.modelDestination = modelDestination;
+            MaskBox.SelectedIndex = 0;
         }
 
         private void LoaderForm_Load(object sender, EventArgs e)
@@ -46,13 +47,26 @@ namespace Services_Industry_Simulation.Loader
 
         private void MaskBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            Config.MaskRules = MaskBox.SelectedIndex;
         }
 
         private void Confirm_Button_Click(object sender, EventArgs e)
         {
             // Have the loader create the model.    
             (modelDestination.bmp, modelDestination.model) = ModelLoader.GetModel(image);
+            
+            switch (MaskBox.SelectedIndex)
+            {
+                case 0:
+                    Config.MaskFactor = 1;
+                    break;
+                case 1:
+                    Config.MaskFactor = 2;
+                    break;
+                case 2:
+                    Config.MaskFactor = 5;
+                    break;
+            }
             this.Close();
         }
     }

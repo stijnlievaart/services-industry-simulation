@@ -26,7 +26,7 @@ namespace Services_Industry_Simulation.Simulation
         int time;
         public readonly bool payAtRegister;
         public int Time { get { return time; } }
-
+        public int maskRules;
         public HashSet<Person> peopleWalking;
 
         public void RunModel()
@@ -77,6 +77,7 @@ namespace Services_Industry_Simulation.Simulation
             peopleWalking = new HashSet<Person>();
             this.payAtRegister = payAtRegister;
             this.stopTime = timeLimit   ;
+            this.maskRules = maskRules;
 
         }
 
