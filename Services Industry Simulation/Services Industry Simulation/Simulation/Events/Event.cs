@@ -87,8 +87,13 @@
 
         public override void Process(Model model)
         {
-            if (model.payAtRegister) customer.StartRouteTo(model, model.registerRoute, model.registerLocation);
+            if (model.payAtRegister && !customer.InToilet) customer.StartRouteTo(model, model.registerRoute, model.registerLocation / 2f);
+            else if (model.payAtRegister) 
+            {
+                model.AddEvent(new PayEvent(model.Time + 10,customer));
+            }
             else model.staffManager.GiveTask(this);
+
         }
     }
 

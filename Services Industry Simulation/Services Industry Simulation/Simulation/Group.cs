@@ -42,13 +42,14 @@ namespace Services_Industry_Simulation.Simulation
 
         public void Leave(Model model)
         {
-            model.emptyTables.Enqueue(table);
-            table.pastGroups.Add(this);
-            table.activeGroup = null;
             for (int i = 0; i < customers.Count; i++)
             {
                 customers[i].StartRouteTo(model, model.exitRoute, model.exitRoute.via.Length);
             }
+            model.emptyTables.Enqueue(table);
+            table.pastGroups.Add(this);
+            table.activeGroup = null;
+            
         }
         
         public void DrawGroup(Graphics gr,Config config)

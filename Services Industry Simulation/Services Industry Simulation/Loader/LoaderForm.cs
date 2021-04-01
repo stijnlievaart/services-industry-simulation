@@ -53,7 +53,7 @@ namespace Services_Industry_Simulation.Loader
         private void Confirm_Button_Click(object sender, EventArgs e)
         {
             // Have the loader create the model.    
-            Config config = new Config(0.5f, 10, 100, 4, 300, false, 3600, 2);
+            Config config = new Config(0.5f, 10, 100, 4, 300, true, 3600, 2);
             (modelDestination.bmp, modelDestination.model) = ModelLoader.GetModel(new Random(),image,config);
             
             switch (MaskBox.SelectedIndex)

@@ -18,13 +18,13 @@ namespace Services_Industry_Simulation
         [STAThread]
         static void Main()
         {
-            StatisticResults sr = RunDiversPopulations();
-            Console.ReadLine();
-            return;
+            //StatisticResults sr = RunDiversPopulations();
+            //Console.ReadLine();
+            //return;
             //Output();
-            //Application.EnableVisualStyles();
-            //Application.SetCompatibleTextRenderingDefault(false);
-            //Application.Run(new Form1());
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
+            Application.Run(new Form1());
         }
 
         public static StatisticResults RunDiversPopulations()

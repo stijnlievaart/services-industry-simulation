@@ -74,8 +74,16 @@ namespace Services_Industry_Simulation.Simulation
                 model.toiletManager.EnqueueCustomer(this);
                 this.goalRoute = null;
             }
-
+            else if(goal == GoalType.Register)
+            {
+                group.Leave(model);
+            }
             model.RemoveFromWalking(this);
+        }
+
+        public bool InToilet
+        {
+            get { return exactLocation.x == 1000; }
         }
 
         public override void Update(Model model)
@@ -88,6 +96,8 @@ namespace Services_Industry_Simulation.Simulation
 
         private void CalculateInfections(Model model)
         {
+            if (InToilet) 
+                return;
             for (int i = 0; i < model.tables.Length; i++)
             {
                 Table t = model.tables[i];
