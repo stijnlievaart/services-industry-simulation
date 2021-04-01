@@ -41,7 +41,7 @@ namespace Services_Industry_Simulation.Simulation
             {
                 Customer c = inToilet.Dequeue();
                 c.StartRouteTo(model.toiletRouteExit, 0, c.group.table.onRoute, c.group.table.onRouteLocation,model);
-
+                c.exactLocation = model.toiletRouteExit.via[0];
             }
             else throw new Exception("Toilet tried removing customer but was already empty.");
 

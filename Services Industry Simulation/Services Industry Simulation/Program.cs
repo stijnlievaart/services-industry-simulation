@@ -18,13 +18,13 @@ namespace Services_Industry_Simulation
         [STAThread]
         static void Main()
         {
-            StatisticResults sr = RunDiversPopulations();
-            Console.ReadLine();
+            //StatisticResults sr = RunDiversPopulations();
+            //Console.ReadLine();
             //return;
             Output();
-            //Application.EnableVisualStyles();
-            //Application.SetCompatibleTextRenderingDefault(false);
-            //Application.Run(new Form1());
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
+            Application.Run(new Form1());
         }
 
         public static StatisticResults RunDiversPopulations()
@@ -44,11 +44,11 @@ namespace Services_Industry_Simulation
                 Console.WriteLine("Making simulation "+i);
                 Config config = new Config(0.5f,10,i*10,6,200,true,15000,1);
                 configs.Add(config);
-                for (int j = 0; j < 10; j++)
+                for (int j = 0; j < 40; j++)
                 {
 
                     Bitmap bmp = (Bitmap)Image.FromFile("c:\\Temp\\map.png");
-                    (Bitmap b, Model model) = ModelLoader.GetModel(new Random(i * 10 + j), bmp, config);
+                    (Bitmap b, Model model) = ModelLoader.GetModel(new Random(i * 40 + j), bmp, config);
                     models.Add(model);
                 }
             }
@@ -60,8 +60,8 @@ namespace Services_Industry_Simulation
                 model.RunModel();
                 lock (sr.means)
                 {
-                    if (!sr.means.ContainsKey(configs[i / 10])) sr.means.Add(configs[i / 10], new List<float>() { GiveMean(model) });
-                    else sr.means[configs[i / 10]].Add(GiveMean(model));
+                    if (!sr.means.ContainsKey(configs[i / 40])) sr.means.Add(configs[i / 40], new List<float>() { GiveMean(model) });
+                    else sr.means[configs[i / 40]].Add(GiveMean(model));
                 }
 
             });
@@ -73,8 +73,8 @@ namespace Services_Industry_Simulation
                 List<float> ints = sr.means[configs[i]];
                 for (int j = 0; j < ints.Count; j++)
                 {
-                    sw.WriteLine((i * 10).ToString() + "," + ints[j]);
-                    Console.WriteLine("Mean for :" + (i * 10).ToString() + "," + " customers: " + ints[j]);
+                    sw.WriteLine((i * 40).ToString() + "," + ints[j]);
+                    Console.WriteLine("Mean for :" + (i * 40).ToString() + "," + " customers: " + ints[j]);
 
                 }
 
