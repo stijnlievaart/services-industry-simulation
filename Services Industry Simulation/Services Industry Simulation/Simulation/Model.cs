@@ -37,7 +37,6 @@ namespace Services_Industry_Simulation.Simulation
             while (time < stopTime)
             {
                 Update();
-                if (time % 1000 == 0) System.Console.WriteLine(time/(float)stopTime*100);
             }
             for (int i = 0; i < tables.Length; i++)
             {
