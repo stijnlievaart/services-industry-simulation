@@ -19,7 +19,7 @@ namespace Services_Industry_Simulation
         {
             //StatisticResults sr = RunDiversPopulations();
             //return;
-            Output();
+            //Output();
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new Form1());
@@ -39,7 +39,7 @@ namespace Services_Industry_Simulation
             // Model generation
             for (int i = 0; i < 11; i++)
             {
-                Config config = new Config(0.5f,10,i*10,6,200,true,15000,1);
+                Config config = new Config(0.5f,10,i*10,6,200,false,15000,1);
                 configs.Add(config);
                 (Bitmap b,Model model) = ModelLoader.GetModel(bmp, config);
                 models.Add(model);
@@ -109,22 +109,15 @@ namespace Services_Industry_Simulation
             float SD = (float)Math.Sqrt(variance);
             return mean;
         }
-    }
 
-    class StatisticResults
-    {
-        public Dictionary<Config, float> means;
-       
-    }
-
-    static void Output()
+        static void Output()
         {
             string basePath = @"C:\Temp\";
-            
+
             try
             {
                 int i = 0;
-                
+
                 while (true)
                 {
                     string fileName = basePath + i + ".txt";
@@ -135,7 +128,7 @@ namespace Services_Industry_Simulation
                         continue;
                     }
 
-                    
+
 
                     using (FileStream fs = File.Create(fileName))
                     {
@@ -149,4 +142,13 @@ namespace Services_Industry_Simulation
                 Console.WriteLine(Ex.ToString());
             }
         }
-}
+
+    }
+
+    class StatisticResults
+    {
+        public Dictionary<Config, float> means;
+       
+    }
+
+    }

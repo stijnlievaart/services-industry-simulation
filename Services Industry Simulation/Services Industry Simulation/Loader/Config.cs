@@ -20,7 +20,7 @@
             this.SecondsInToilet = secondsInToilet;
             this.PayAtRegister = payAtRegister;
             this.TimeLimit = timeLimit;
-            this.MaskFactor = maskFactor;
+            this.MaskFactor = maskFactor;   
         }
     }
 }
