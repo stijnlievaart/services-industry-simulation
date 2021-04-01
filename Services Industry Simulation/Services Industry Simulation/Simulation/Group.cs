@@ -15,7 +15,7 @@ namespace Services_Industry_Simulation.Simulation
 
         public Group(int timeOfEntry, List<Customer> customers, Table table)
         {
-            peopleLeft = 0;
+            peopleLeft = -1;
             this.timeOfEntry = timeOfEntry;
             this.customers = customers;
             this.table = table;
@@ -44,6 +44,7 @@ namespace Services_Industry_Simulation.Simulation
 
         public void Leave(Model model)
         {
+            peopleLeft = 0;
             for (int i = 0; i < customers.Count; i++)
             {
                 customers[i].StartRouteTo(model, model.exitRoute, model.exitRoute.via.Length/2f);

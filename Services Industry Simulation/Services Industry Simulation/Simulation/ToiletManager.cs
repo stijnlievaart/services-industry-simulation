@@ -40,7 +40,9 @@ namespace Services_Industry_Simulation.Simulation
             if (inToilet.Count > 0)
             {
                 Customer c = inToilet.Dequeue();
-                c.StartRouteTo(model.toiletRouteExit, 0, c.group.table.onRoute, c.group.table.onRouteLocation,model);
+                if (c.group.peopleLeft >= 0) c.StartRouteTo(model.toiletRouteExit, 0, model.exitRoute, model.exitRoute.via.Length/2f, model);
+                else c.StartRouteTo(model.toiletRouteExit, 0, c.group.table.onRoute, c.group.table.onRouteLocation, model);
+
                 c.exactLocation = model.toiletRouteExit.via[0];
             }
             else throw new Exception("Toilet tried removing customer but was already empty.");
