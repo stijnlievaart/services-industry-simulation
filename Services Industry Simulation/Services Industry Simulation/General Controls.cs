@@ -62,9 +62,20 @@ namespace Services_Industry_Simulation
                     if(isWalking)str += "\t\t\tWalking from: " + c.onRoute.routeType.ToString()+"," + c.onRouteLocation.ToString()+  ":\n";
                     str += "\n";
                 }
-                    
             }
-            
+            string str2 = "";
+            for (int j = 0; j < loadedModel.staffManager.staff.Length; j++)
+            {
+                Staff s = loadedModel.staffManager.staff[j];
+                bool isWalking = s.goalRoute != null;
+                
+                str2 += "\tStaff" + j.ToString() + ":\n";
+                str2 += "\t\tLocation: (" + s.exactLocation.x + ";" + s.exactLocation.y + ")\n";
+                if (isWalking)str2 += "\t\t\tWalking to: " + s.goalRoute.routeType.ToString() + "," + s.goalRouteLocation.ToString() + ":\n";
+                if (isWalking)str2 += "\t\t\tWalking from: " + s.onRoute.routeType.ToString() + "," + s.onRouteLocation.ToString() + ":\n";
+                str2 += "\n";
+            }
+            richTextBox2.Text = str2;
             richTextBox1.Text = str;
             base.OnPaint(e);
         }

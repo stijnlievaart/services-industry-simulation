@@ -78,6 +78,18 @@ namespace Services_Industry_Simulation.Simulation
             {
                 group.Leave(model);
             }
+            else if(goal == GoalType.Exit)
+            {
+                group.peopleLeft++;
+                if (group.peopleLeft >= group.customers.Count)
+                {
+                    group.table.pastGroups.Add(group);
+                    group.table.activeGroup = null;
+                    model.emptyTables.Enqueue(group.table);
+                    exactLocation = new FPoint(2000, 0);
+                    goalRoute = null;
+                }
+            }
             model.RemoveFromWalking(this);
         }
 
@@ -123,6 +135,10 @@ namespace Services_Industry_Simulation.Simulation
             this.onRouteLocation = group.table.onRouteLocation;
             this.goalRoute = goalRoute;
             this.goalRouteLocation = goalRouteDestination;
+
+            exactLocation = onRoute.via[(int)(onRouteLocation / model.Scale)];
+            oldLocation = exactLocation;
+
             model.peopleWalking.Add(this);
         }
 

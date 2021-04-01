@@ -18,13 +18,13 @@ namespace Services_Industry_Simulation
         [STAThread]
         static void Main()
         {
-            //StatisticResults sr = RunDiversPopulations();
-            //Console.ReadLine();
+            StatisticResults sr = RunDiversPopulations();
+            Console.ReadLine();
             //return;
-            //Output();
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            Output();
+            //Application.EnableVisualStyles();
+            //Application.SetCompatibleTextRenderingDefault(false);
+            //Application.Run(new Form1());
         }
 
         public static StatisticResults RunDiversPopulations()
@@ -42,7 +42,7 @@ namespace Services_Industry_Simulation
             for (int i = 0; i < 10; i++)
             {
                 Console.WriteLine("Making simulation "+i);
-                Config config = new Config(0.5f,10,i*10,6,200,false,15000,1);
+                Config config = new Config(0.5f,10,i*10,6,200,true,15000,1);
                 configs.Add(config);
                 for (int j = 0; j < 10; j++)
                 {

@@ -13,6 +13,10 @@ namespace Services_Industry_Simulation.Simulation
 
         public override void Update(Model model)
         {
+            if(goalRoute!=null && goalRoute.routeType==Route.RouteType.RegisterRoute)
+            {   
+
+            }
             Move(model);
         }
 

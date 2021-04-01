@@ -56,6 +56,7 @@ namespace Services_Industry_Simulation.Simulation
                 if (onRouteLocation + speed >= goalRouteLocation)
                 {
                     onCorrectRoute = false;
+                    
                     Arrival((GoalType)goalRoute.routeType,model);
                     return;
                 }
@@ -70,6 +71,7 @@ namespace Services_Industry_Simulation.Simulation
                 Pathfind(onRoute.exits);
                 onRouteLocation = 0;
                 exactLocation = onRoute.via[(int)(onRouteLocation / model.Scale)];
+                return;
             }
             else
             {
@@ -206,6 +208,9 @@ namespace Services_Industry_Simulation.Simulation
             this.onRouteLocation = originLocation;
             this.goalRoute = goalRoute;
             this.goalRouteLocation = goalRouteDestination;
+
+            exactLocation = onRoute.via[(int)(onRouteLocation / model.Scale)];
+            oldLocation = exactLocation;
             model.peopleWalking.Add(this);
         }
 
