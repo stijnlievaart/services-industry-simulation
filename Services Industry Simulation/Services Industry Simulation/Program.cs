@@ -35,9 +35,11 @@ namespace Services_Industry_Simulation
             List<Model> models = new List<Model>();
             List<Config> configs = new List<Config>();
 
+            StreamWriter sw = Output();
+
 
             // Model generation
-            for (int i = 0; i < 11; i++)
+            for (int i = 0; i < 4; i++)
             {
                 Console.WriteLine("Making simulation "+i);
                 Config config = new Config(0.5f,10,i*10,6,200,false,15000,1);
@@ -56,9 +58,14 @@ namespace Services_Industry_Simulation
             });
             for (int i = 0; i < models.Count; i++)
             {
-                Console.WriteLine("Mean for :" + (i*10).ToString() + " customers: " + sr.means[configs[i]]);
+
+                sw.WriteLine((i * 10).ToString() + "," +  sr.means[configs[i]]);
+
+
+                Console.WriteLine("Mean for :" + (i*10).ToString() + "," + " customers: " + sr.means[configs[i]]);
             }
 
+            sw.Close();
             return sr;
         }
 
@@ -89,7 +96,7 @@ namespace Services_Industry_Simulation
                 }
             }
 
-
+            
             //Calculate mean.
             float sum = 0;
             foreach (KeyValuePair<Person, float> pair in personInfectedByVirusesTotal)
@@ -111,7 +118,7 @@ namespace Services_Industry_Simulation
             return mean;
         }
 
-        static void Output()
+        static StreamWriter Output()
         {
             string basePath = @"C:\Temp\";
 
@@ -131,16 +138,17 @@ namespace Services_Industry_Simulation
 
 
 
-                    using (FileStream fs = File.Create(fileName))
-                    {
-                    }
-                    break;
+                    FileStream fs = File.Create(fileName);
+                    StreamWriter sw = new StreamWriter(fs);
+                    return sw;
+                 
                 }
 
             }
             catch (Exception Ex)
             {
                 Console.WriteLine(Ex.ToString());
+                return null;
             }
         }
 
