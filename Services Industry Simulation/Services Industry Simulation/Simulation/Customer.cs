@@ -83,7 +83,7 @@ namespace Services_Industry_Simulation.Simulation
 
         public bool InToilet
         {
-            get { return exactLocation.x == 1000; }
+            get { return exactLocation.x == 2000; }
         }
 
         public override void Update(Model model)

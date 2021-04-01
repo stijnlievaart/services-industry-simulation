@@ -97,6 +97,7 @@ namespace Services_Industry_Simulation.Simulation
 
         public void Update()
         {
+            if (time > stopTime) return;
             for (int i = 0; i < tables.Length; i++)
             {
                 tables[i].Update(this);
@@ -112,20 +113,17 @@ namespace Services_Industry_Simulation.Simulation
 
             time++;
 
-            if (!events.IsEmpty())
-            {
-                while(!events.IsEmpty())
-                { 
-                    Event e = events.Peek();
-                    if (e.Position > Time) break;
-                    else
-                    {
-                        e.Process(this);
-                        events.Pop();
-                    }
+            while(!events.IsEmpty())
+            { 
+                Event e = events.Peek();
+                if (e.Position > Time) break;
+                else
+                {
+                    e.Process(this);
+                    events.Pop();
                 }
             }
-        }
+    }
 
         public void DrawModel(Graphics gr,Config config)
         {
