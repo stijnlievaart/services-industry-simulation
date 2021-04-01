@@ -17,8 +17,8 @@ namespace Services_Industry_Simulation
         [STAThread]
         static void Main()
         {
-            //StatisticResults sr = RunDiversPopulations();
-            //return;
+            StatisticResults sr = RunDiversPopulations();
+            return;
             //Output();
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
