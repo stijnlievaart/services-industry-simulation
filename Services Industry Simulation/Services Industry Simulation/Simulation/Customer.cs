@@ -81,14 +81,15 @@ namespace Services_Industry_Simulation.Simulation
             else if(goal == GoalType.Exit)
             {
                 group.peopleLeft++;
-                if (group.peopleLeft >= group.customers.Count)
+                if (group.peopleLeft == group.customers.Count)
                 {
                     group.table.pastGroups.Add(group);
                     group.table.activeGroup = null;
                     model.emptyTables.Enqueue(group.table);
-                    exactLocation = new FPoint(2000, 0);
-                    goalRoute = null;
                 }
+
+                exactLocation = new FPoint(2000, 0);
+                goalRoute = null;
             }
             model.RemoveFromWalking(this);
         }
