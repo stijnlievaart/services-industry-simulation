@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
+using System.Threading;
 
 namespace Services_Industry_Simulation
 {
@@ -17,13 +18,13 @@ namespace Services_Industry_Simulation
         [STAThread]
         static void Main()
         {
-            //StatisticResults sr = RunDiversPopulations();
-            //Console.ReadLine();
-            //return;
+            StatisticResults sr = RunDiversPopulations();
+            Console.ReadLine();
+            return;
             //Output();
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            //Application.EnableVisualStyles();
+            //Application.SetCompatibleTextRenderingDefault(false);
+            //Application.Run(new Form1());
         }
 
         public static StatisticResults RunDiversPopulations()
@@ -38,7 +39,7 @@ namespace Services_Industry_Simulation
 
 
             // Model generation
-            for (int i = 0; i < 5; i++)
+            for (int i = 1; i < 10; i++)
             {
                 Console.WriteLine("Making simulation "+i);
                 Config config = new Config(0.5f,10,i*10,6,200,false,15000,1);
@@ -52,7 +53,7 @@ namespace Services_Industry_Simulation
                 }
             }
 
-            Parallel.For(0, models.Count, (i) =>
+            var res = Parallel.For(0, models.Count, (i) =>
             {
                 Console.WriteLine("Starting Simulation " + i);
                 Model model = models[i];
@@ -64,6 +65,9 @@ namespace Services_Industry_Simulation
                 }
 
             });
+
+            while (!res.IsCompleted) Thread.Sleep(100);
+
             for (int i = 0; i < 10; i++)
             {
                 List<float> ints = sr.means[configs[i/10]];

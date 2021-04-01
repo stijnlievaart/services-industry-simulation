@@ -81,7 +81,9 @@ namespace Services_Industry_Simulation.Simulation
             }
             for (int i = 0; i < tables.Length; i++)
             {
-                emptyTables.Enqueue(tables[keys[rnd.Next(0,keys.Count)]]);
+                int key = rnd.Next(0, keys.Count);
+                emptyTables.Enqueue(tables[keys[key]]);
+                keys.RemoveAt(key);
             }           
             this.routes = routes;
             events = new MinHeap();
