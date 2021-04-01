@@ -6,7 +6,7 @@ namespace Services_Industry_Simulation.Loader
 {
     static class ModelLoader
     {
-        public static (Bitmap,Model) GetModel(Image image,Config config)
+        public static (Bitmap,Model) GetModel(Random rnd,Image image,Config config)
         {
             char[,] debug = new char[20, 40];
             for (int i = 0; i < 20; i++)
@@ -121,7 +121,7 @@ namespace Services_Industry_Simulation.Loader
             }
             if (closestRoute == null) throw new Exception("No route found that has the closest point.");
 
-            return (bmp,new Model(tables, routes,closestJ, config.MaxStaff, config.MaxSeating, config.MaxInToilet,config.SecondsInToilet, config.PayAtRegister, config.Scale, config.TimeLimit,config.MaskFactor));
+            return (bmp,new Model(rnd,tables, routes,closestJ, config.MaxStaff, config.MaxSeating, config.MaxInToilet,config.SecondsInToilet, config.PayAtRegister, config.Scale, config.TimeLimit,config.MaskFactor));
         }
 
     }

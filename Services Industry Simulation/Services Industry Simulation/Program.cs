@@ -17,8 +17,9 @@ namespace Services_Industry_Simulation
         [STAThread]
         static void Main()
         {
-            StatisticResults sr = RunDiversPopulations();
-            return;
+            //StatisticResults sr = RunDiversPopulations();
+            //Console.ReadLine();
+            //return;
             //Output();
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
@@ -29,9 +30,7 @@ namespace Services_Industry_Simulation
         {
 
             StatisticResults sr = new StatisticResults();
-            sr.means = new Dictionary<Config, float>();
-
-            Bitmap bmp = (Bitmap)Image.FromFile("c:\\Temp\\map.png");
+            sr.means = new Dictionary<Config, List<float>>();
             List<Model> models = new List<Model>();
             List<Config> configs = new List<Config>();
 
@@ -39,13 +38,18 @@ namespace Services_Industry_Simulation
 
 
             // Model generation
-            for (int i = 0; i < 4; i++)
+            for (int i = 0; i < 5; i++)
             {
                 Console.WriteLine("Making simulation "+i);
                 Config config = new Config(0.5f,10,i*10,6,200,false,15000,1);
                 configs.Add(config);
-                (Bitmap b,Model model) = ModelLoader.GetModel(bmp, config);
-                models.Add(model);
+                for (int j = 0; j < 10; j++)
+                {
+
+                    Bitmap bmp = (Bitmap)Image.FromFile("c:\\Temp\\map.png");
+                    (Bitmap b, Model model) = ModelLoader.GetModel(new Random(i * 10 + j), bmp, config);
+                    models.Add(model);
+                }
             }
 
             Parallel.For(0, models.Count, (i) =>
@@ -53,16 +57,24 @@ namespace Services_Industry_Simulation
                 Console.WriteLine("Starting Simulation " + i);
                 Model model = models[i];
                 model.RunModel();
-                sr.means.Add(configs[i], GiveMean(model));
+                lock (sr.means)
+                {
+                    if (!sr.means.ContainsKey(configs[i / 10])) sr.means.Add(configs[i / 10], new List<float>() { GiveMean(model) });
+                    else sr.means[configs[i / 10]].Add(GiveMean(model));
+                }
 
             });
-            for (int i = 0; i < models.Count; i++)
+            for (int i = 0; i < 10; i++)
             {
+                List<float> ints = sr.means[configs[i/10]];
+                for (int j = 0; j < ints.Count; j++)
+                {
+                    sw.WriteLine((i * 10).ToString() + "," + ints[j]);
+                    Console.WriteLine("Mean for :" + (i * 10).ToString() + "," + " customers: " + ints[j]);
 
-                sw.WriteLine((i * 10).ToString() + "," +  sr.means[configs[i]]);
+                }
 
 
-                Console.WriteLine("Mean for :" + (i*10).ToString() + "," + " customers: " + sr.means[configs[i]]);
             }
 
             sw.Close();
@@ -156,7 +168,7 @@ namespace Services_Industry_Simulation
 
     class StatisticResults
     {
-        public Dictionary<Config, float> means;
+        public Dictionary<Config, List<float>> means;
        
     }
 

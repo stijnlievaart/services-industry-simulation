@@ -1,5 +1,6 @@
 ﻿using Services_Industry_Simulation.Imports;
 using Services_Industry_Simulation.Loader;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -48,7 +49,7 @@ namespace Services_Industry_Simulation.Simulation
             }
         }
 
-        public Model(Table[] tables, Route[] routes,int closestJ, int maxStaff, int maxSeating, int maxToilet,int toiletTime, bool payAtRegister, float scale, int timeLimit, int maskFactor)
+        public Model(Random rnd,Table[] tables, Route[] routes,int closestJ, int maxStaff, int maxSeating, int maxToilet,int toiletTime, bool payAtRegister, float scale, int timeLimit, int maskFactor)
         {
             this.secondsInToilet = toiletTime;
             this.Scale = scale;
@@ -71,12 +72,17 @@ namespace Services_Industry_Simulation.Simulation
             if (staffRouteStart == null || staffRouteEnd == null || toiletRouteEntry == null || toiletRouteExit == null) throw new System.Exception("Not all necesary routes are available.");
             time = 0;
             this.maxSeating = maxSeating;
-            this.tables = tables;
+            this.tables = tables; 
             this.emptyTables = new Queue<Table>();
+            List<int> keys = new List<int>();
             for (int i = 0; i < tables.Length; i++)
             {
-                emptyTables.Enqueue(tables[i]);
+                keys.Add(i);
             }
+            for (int i = 0; i < tables.Length; i++)
+            {
+                emptyTables.Enqueue(tables[keys[rnd.Next(0,keys.Count)]]);
+            }           
             this.routes = routes;
             events = new MinHeap();
             staffManager = new StaffManager(maxStaff,this);
