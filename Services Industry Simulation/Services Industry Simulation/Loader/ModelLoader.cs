@@ -89,7 +89,6 @@ namespace Services_Industry_Simulation.Loader
                         registerFound = true;
                         routeTiles.Add((i, j), RouteConstructor.RouteTile.Pay);
                     }
-                    else Console.WriteLine("Unknown Color: " + color.ToString());
                 }
 
             }
@@ -122,15 +121,6 @@ namespace Services_Industry_Simulation.Loader
             }
             if (closestRoute == null) throw new Exception("No route found that has the closest point.");
 
-            // Print Debug
-            for (int j = 0; j < debug.GetLength(1); j++)
-            {
-                for (int i = 0; i < debug.GetLength(0); i++)
-                {
-                    Console.Write(debug[i, j]);
-                }
-                Console.WriteLine();
-            }
             return (bmp,new Model(tables, routes,closestJ, config.MaxStaff, config.MaxSeating, config.MaxInToilet,config.SecondsInToilet, config.PayAtRegister, config.Scale, config.TimeLimit,config.MaskFactor));
         }
 

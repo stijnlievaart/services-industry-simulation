@@ -39,20 +39,21 @@ namespace Services_Industry_Simulation
             // Model generation
             for (int i = 0; i < 11; i++)
             {
+                Console.WriteLine("Making simulation "+i);
                 Config config = new Config(0.5f,10,i*10,6,200,false,15000,1);
                 configs.Add(config);
                 (Bitmap b,Model model) = ModelLoader.GetModel(bmp, config);
                 models.Add(model);
             }
 
-            for (int i = 0; i < models.Count; i++)
+            Parallel.For(0, models.Count, (i) =>
             {
                 Console.WriteLine("Starting Simulation " + i);
                 Model model = models[i];
                 model.RunModel();
                 sr.means.Add(configs[i], GiveMean(model));
-                
-            }
+
+            });
             for (int i = 0; i < models.Count; i++)
             {
                 Console.WriteLine("Mean for :" + (i*10).ToString() + " customers: " + sr.means[configs[i]]);
