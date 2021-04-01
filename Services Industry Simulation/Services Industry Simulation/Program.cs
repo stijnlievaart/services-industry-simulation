@@ -39,7 +39,7 @@ namespace Services_Industry_Simulation
 
 
             // Model generation
-            for (int i = 1; i < 10; i++)
+            for (int i = 0; i < 10; i++)
             {
                 Console.WriteLine("Making simulation "+i);
                 Config config = new Config(0.5f,10,i*10,6,200,false,15000,1);
@@ -70,7 +70,7 @@ namespace Services_Industry_Simulation
 
             for (int i = 0; i < 10; i++)
             {
-                List<float> ints = sr.means[configs[i/10]];
+                List<float> ints = sr.means[configs[i]];
                 for (int j = 0; j < ints.Count; j++)
                 {
                     sw.WriteLine((i * 10).ToString() + "," + ints[j]);
