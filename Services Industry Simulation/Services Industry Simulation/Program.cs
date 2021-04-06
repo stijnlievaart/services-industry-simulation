@@ -18,9 +18,9 @@ namespace Services_Industry_Simulation
         [STAThread]
         static void Main()
         {
-            //StatisticResults sr = RunDiversPopulations();
-            //Console.ReadLine();
-            //return;
+            StatisticResults sr = RunDiversPopulations();
+            Console.ReadLine();
+            return;
             Output();
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
@@ -36,23 +36,22 @@ namespace Services_Industry_Simulation
             List<Config> configs = new List<Config>();
 
             StreamWriter sw = Output();
-
+            int amountOfDifferentModels = 10;
+            int amountOfRunsPerConfig = 10;
 
             // Model generation
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < amountOfDifferentModels; i++)
             {
                 Console.WriteLine("Making simulation "+i);
-                Config config = new Config(0.5f,10,i*10,6,200,true,15000,1);
+                Config config = new Config(0.5f,10,i*10,6,200,true,8000,1);
                 configs.Add(config);
-                for (int j = 0; j < 40; j++)
+                for (int j = 0; j < amountOfRunsPerConfig; j++)
                 {
-
                     Bitmap bmp = (Bitmap)Image.FromFile("c:\\Temp\\map.png");
-                    (Bitmap b, Model model) = ModelLoader.GetModel(new Random(i * 40 + j), bmp, config);
+                    (Bitmap b, Model model) = ModelLoader.GetModel(new Random(i * amountOfRunsPerConfig + j), bmp, config);
                     models.Add(model);
                 }
             }
-
             var res = Parallel.For(0, models.Count, (i) =>
             {
                 Console.WriteLine("Starting Simulation " + i);
@@ -60,22 +59,21 @@ namespace Services_Industry_Simulation
                 model.RunModel();
                 lock (sr.means)
                 {
-                    if (!sr.means.ContainsKey(configs[i / 40])) sr.means.Add(configs[i / 40], new List<float>() { GiveMean(model) });
-                    else sr.means[configs[i / 40]].Add(GiveMean(model));
+                    if (!sr.means.ContainsKey(configs[i / amountOfRunsPerConfig])) sr.means.Add(configs[i / amountOfRunsPerConfig], new List<float>() { GiveMean(model) });
+                    else sr.means[configs[i / amountOfRunsPerConfig]].Add(GiveMean(model));
                 }
 
             });
 
             while (!res.IsCompleted) Thread.Sleep(100);
 
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < amountOfDifferentModels; i++)
             {
                 List<float> ints = sr.means[configs[i]];
                 for (int j = 0; j < ints.Count; j++)
                 {
-                    sw.WriteLine((i * 40).ToString() + "," + ints[j]);
-                    Console.WriteLine("Mean for :" + (i * 40).ToString() + "," + " customers: " + ints[j]);
-
+                    sw.WriteLine((configs[i].MaxSeating).ToString() + "," + ints[j]);
+                    Console.WriteLine("Mean for :" + (configs[i].MaxSeating).ToString() + "," + " customers: " + ints[j]);
                 }
 
 
