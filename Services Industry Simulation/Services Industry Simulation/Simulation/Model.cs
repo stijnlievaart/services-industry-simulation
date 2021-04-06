@@ -12,6 +12,7 @@ namespace Services_Industry_Simulation.Simulation
         public Table[] tables;
         public int maxSeating;
         Route[] routes;
+        public readonly float maskFactor;
         public readonly Route staffRouteStart;
         public readonly Route staffRouteEnd;
         public readonly Route toiletRouteEntry;
@@ -29,7 +30,6 @@ namespace Services_Industry_Simulation.Simulation
         int time;
         public readonly bool payAtRegister;
         public int Time { get { return time; } }
-        public int maskFactor;
         public HashSet<Person> peopleWalking;
 
         public void RunModel()
@@ -48,7 +48,7 @@ namespace Services_Industry_Simulation.Simulation
             }
         }
 
-        public Model(Random rnd,Table[] tables, Route[] routes,int closestJ, int maxStaff, int maxSeating, int maxToilet,int toiletTime, bool payAtRegister, float scale, int timeLimit, int maskFactor)
+        public Model(Random rnd,Table[] tables, Route[] routes,int closestJ, int maxStaff, int maxSeating, int maxToilet,int toiletTime, bool payAtRegister, float scale, int timeLimit, float maskFactor)
         {
             this.secondsInToilet = toiletTime;
             this.Scale = scale;
@@ -70,6 +70,7 @@ namespace Services_Industry_Simulation.Simulation
 
             if (staffRouteStart == null || staffRouteEnd == null || toiletRouteEntry == null || toiletRouteExit == null) throw new System.Exception("Not all necesary routes are available.");
             time = 0;
+            this.maskFactor = maskFactor;
             this.maxSeating = maxSeating;
             this.tables = tables; 
             this.emptyTables = new Queue<Table>();

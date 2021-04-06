@@ -10,7 +10,7 @@
         public readonly int SecondsInToilet = 300;
         public readonly bool PayAtRegister = false;
         public readonly int TimeLimit = 3600*24;
-        public readonly int MaskFactor;
+        public readonly int MaskFactor = 1;
         public Config(float scale, int maxStaff, int maxSeating, int maxInToilet, int secondsInToilet, bool payAtRegister, int timeLimit, int maskFactor)
         {
             this.Scale = scale;

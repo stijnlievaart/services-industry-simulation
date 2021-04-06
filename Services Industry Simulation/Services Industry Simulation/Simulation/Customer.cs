@@ -51,6 +51,8 @@ namespace Services_Industry_Simulation.Simulation
 
             float infectionOdds = GetOddsOfInfection(secondPerson,model);
 
+            infectionOdds *= model.maskFactor;
+
             Virus virusNew = secondPerson.virus;
             if (infections.ContainsKey(virusNew))
             {

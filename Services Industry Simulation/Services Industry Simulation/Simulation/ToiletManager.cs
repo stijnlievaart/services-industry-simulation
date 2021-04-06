@@ -47,7 +47,7 @@ namespace Services_Industry_Simulation.Simulation
             }
             else throw new Exception("Toilet tried removing customer but was already empty.");
 
-            Console.WriteLine(inToilet.Count);
+            //Console.WriteLine(inToilet.Count);
         }
 
         public void EnqueueCustomer(Customer c)
