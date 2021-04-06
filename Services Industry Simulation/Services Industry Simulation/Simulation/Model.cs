@@ -178,7 +178,7 @@ namespace Services_Industry_Simulation.Simulation
                 }
                 AddEvent(new TaskEvent(Time + 780, t));
 
-                AddEvent(new PayEvent(Time + 1800,customers[0]));
+                AddEvent(new PayEvent(Time + 3600,customers[0]));
             }
         }
 
