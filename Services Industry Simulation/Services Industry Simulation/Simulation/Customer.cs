@@ -37,8 +37,57 @@ namespace Services_Industry_Simulation.Simulation
             }
             float x = distance + 1;
             odds = (float)(0.2 / Math.Abs(x*x));
-            odds = odds / model.maskFactor;
+
+            if(secondPerson.goalRoute != null)
+            {
+                if(this.goalRoute != null)
+                {
+                    return odds;
+                }
+                else
+                {
+                    switch (model.maskFactor)
+                    {
+                        case 1:
+                            return odds;
+                        case 2:
+                            return odds * .63f;
+                        case 3:
+                            return odds * .5f;
+                    }
+                }
+            }
+            else
+            {
+                if (this.goalRoute != null)
+                {
+                    switch (model.maskFactor)
+                    {
+                        case 1:
+                            return odds;
+                        case 2:
+                            return odds * .43f;
+                        case 3:
+                            return odds * .42f;
+                    }
+                }
+                else
+                {
+                    switch (model.maskFactor)
+                    {
+                        case 1:
+                            return odds;
+                        case 2:
+                            return odds * .33f;
+                        case 3:
+                            return odds * .24f;
+                    }
+                }
+            }
+            Console.WriteLine("fail");
             return odds;
+
+
         }
 
         public void DrawCustomer(Graphics gr,Config config)

@@ -36,14 +36,14 @@ namespace Services_Industry_Simulation
             List<Config> configs = new List<Config>();
 
             StreamWriter sw = Output();
-            int amountOfDifferentModels = 10;
-            int amountOfRunsPerConfig = 10;
+            int amountOfDifferentModels = 16;
+            int amountOfRunsPerConfig = 100;
 
             // Model generation
             for (int i = 0; i < amountOfDifferentModels; i++)
             {
                 Console.WriteLine("Making simulation "+i);
-                Config config = new Config(0.5f,10,i*10,6,200,true,8000,1);
+                Config config = new Config(0.5f,10,i*5,6,200,true,8000,3);
                 configs.Add(config);
                 for (int j = 0; j < amountOfRunsPerConfig; j++)
                 {
